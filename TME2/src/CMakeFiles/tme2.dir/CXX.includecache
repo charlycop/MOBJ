@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/users/enseig/oudy/Bureau/MOBJ/TME2/src/Box.cpp
+Box.h
+/users/enseig/oudy/Bureau/MOBJ/TME2/src/Box.h
+
+/users/enseig/oudy/Bureau/MOBJ/TME2/src/Box.h
+iostream
+-
+string
+-
+algorithm
+-
+
+/users/enseig/oudy/Bureau/MOBJ/TME2/src/Main.cpp
+Box.h
+/users/enseig/oudy/Bureau/MOBJ/TME2/src/Box.h
+iostream
+-
+

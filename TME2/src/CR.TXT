@@ -1,0 +1,29 @@
+==== Compte rendu TME2 MOBJ 02/10/2019 ====
+Charly Oudy - 3414931
+
+--Question 1 :--
+Implémentation de la classe et du fichier name. (ci-joint)
+
+--Question 2 :--
+Box() : 
+erreur de compilation donc l'initialisation Box b0 du main ne fonctionne pas.
+
+Box         (const std::string name, long x1, long y1, long x2, long y2);
+erreur de compilation donc l'initialisation du main ne fonctionne pas.
+
+Box         (const  Box&); 
+Pas d'erreur à la compilation car cette fonction n'est pas appelé dans le main.
+Si on utilise ce contructeur par copie dans le main, alors il y a une erreur de compilation.
+
+--Question 3 :--
+On déplace le corps des fonctions dans le .h, sous la déclaration de la classe, et on écrit "inline" devant le type de retour, mais pas sur les prototypes.
+
+--Question 4 :--
+On cré l'opérateur surchargé operator&& et puis on modifie le main :
+cerr << "   |   " << area.getIntersection(ab) << endl;
+PAR
+cerr << "   |   " << (area && ab) << endl;
+
+--Question 5 :--
+On déclare en privé dans la class, une variable "static", et une fonction static qui permet d'aller chercher la valeur de cette variable.
+Elle sera incrémenté a chaque appel de constructeur et décrémenté à chaque appel du destructeur.
