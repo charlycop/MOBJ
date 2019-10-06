@@ -8,5 +8,5 @@ namespace vector_bench{
 
     void backInsert    ();
     void frontInsert   ();
-    //void sortEachInsert();
+    void sortEachInsert();
 }

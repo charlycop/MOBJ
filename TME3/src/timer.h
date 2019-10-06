@@ -22,7 +22,7 @@ inline Timer& Timer::stop  () { stop_  = clock(); return *this; }
 inline std::ostream& operator<< ( std::ostream& o, const Timer& timer )
 {
   clock_t delta = (timer.stop_ - timer.start_) / (CLOCKS_PER_SEC/1000);
-  o << (delta/1000) << "." << (delta%1000) << " secondes ecoulees";
+  o << (delta/1000) << "." << (delta%1000) << " secondes ecoulees" << std::endl;
   return o;
 }
 

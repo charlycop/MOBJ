@@ -1,5 +1,6 @@
 #pragma once
 
+/*const char* GPL_2_text[]={"The", "licenses", "for", "most", "software", "are"};*/
 const char* GPL_2_text[] = {
                            "GNU", "GENERAL", "PUBLIC", "LICENSE",
                               "Version", "2", "June", "1991",

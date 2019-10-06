@@ -11,7 +11,7 @@ int main ( int argc, char* argv[] )
 {
   backInsert    ();
   frontInsert   ();
-  //sortEachInsert();
+  sortEachInsert();
 
   return 0;
 }

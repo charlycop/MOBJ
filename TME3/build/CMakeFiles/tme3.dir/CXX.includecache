@@ -25,6 +25,10 @@ iostream
 -
 timer.h
 /users/enseig/oudy/Bureau/MOBJ/TME3/src/timer.h
+fstream
+-
+regex
+-
 GPL_2_text.h
 /users/enseig/oudy/Bureau/MOBJ/TME3/src/GPL_2_text.h
 
