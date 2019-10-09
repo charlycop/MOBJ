@@ -10,3 +10,11 @@ namespace vector_bench{
     void frontInsert   ();
     void sortEachInsert();
 }
+
+namespace list_bench{
+
+
+    void backInsert    ();
+    void frontInsert   ();
+    void sortEachInsert();
+}

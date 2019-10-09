@@ -176,8 +176,17 @@ namespace tme2Qf{
     }
 
     void Box::inflate(long dx1, long dy1, long dx2, long dy2){
-        width_ += (dx1+dx2);
-        height_+= (dy1+dy2);
+
+        long x1 = getX1() - dx1;
+        long y1 = getY1() - dy1;
+        long x2 = getX2() + dx2;
+        long y2 = getY2() + dy2;
+
+        // On utilise comme le constructeur
+        width_ = x2-x1; 
+        height_= y2-y1;
+        x_     = (width_  / 2.0) + x1;
+        y_     = (height_ / 2.0) + y1;
     }
 
     Box Box::getIntersection(const Box& box2) const{

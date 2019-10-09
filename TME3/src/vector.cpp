@@ -10,6 +10,14 @@
 using namespace std;
 #include "GPL_2_text.h"
 
+namespace list_bench{
+
+
+
+
+
+}
+
 namespace vector_bench{
 
     void sortEachInsert(){
