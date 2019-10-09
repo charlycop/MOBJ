@@ -4,6 +4,8 @@
 using namespace tme2;
 using namespace std;
 
+bool debug=true;
+
 void testFunction (  Box& ab ) 
 {
     cerr << "   + testFunction() called." << endl;
@@ -25,7 +27,13 @@ void testFunction (  Box& ab )
 int main (int argc, char* argv[])
 
 {   
- {     Box b0;
+ {      
+        string reponse = "y" ;
+        cout << "Voulez-vous entrer en mode DEBUG ? (y/n)" << endl;
+        cin >> reponse;
+        if(reponse == "n") debug = false;
+
+        Box b0;
         Box b1(  "b1", 15, 10, 30, 20);
         Box b2 = b1;
         cerr << "Allocated boxes: " << b1.getAllocateds() << endl;

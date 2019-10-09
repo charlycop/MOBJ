@@ -4,7 +4,7 @@
 #include <string>
 #include <algorithm>    // std::max
 
-const bool debug=false;
+extern bool debug;
 
 namespace tme2{
 
@@ -63,3 +63,4 @@ class Box{
     inline long Box::getHeight()      const{ return isEmpty() ? 0 : (y2_-y1_);    }
     
 }
+
