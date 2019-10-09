@@ -27,3 +27,9 @@ cerr << "   |   " << (area && ab) << endl;
 --Question 5 :--
 On déclare en privé dans la class, une variable "static", et une fonction static qui permet d'aller chercher la valeur de cette variable.
 Elle sera incrémenté a chaque appel de constructeur et décrémenté à chaque appel du destructeur.
+
+--Question 6 :--
+On dupplique la classe Box, dans un nouveau namespace et puis on modifie les accesseurs et les modificateurs, constructeurs et destructeurs. 
+Dans le main il suffit de desactiver le namespace précédent et d'utilsier le namespace tme2Qf "using namespace tme2Qf"
+
+Le programme de test fonctionne, mais nous trouvons des erreurs d'arrondis parfois. En effet, ne pouvant pas stocker les variables x1, x2, x3, x4, le calcul de la largeur impose de faire une division, et le calcul de getX1() par exemple impose une division aussi.

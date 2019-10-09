@@ -1,7 +1,8 @@
 #include "Box.h"
 #include <iostream>
 
-using namespace tme2;
+//using namespace tme2;
+using namespace tme2Qf;
 using namespace std;
 
 bool debug=true;
@@ -21,7 +22,6 @@ void testFunction (  Box& ab )
         cout << " No Intersection" << endl;
     //return ab;
 }
-
 
 
 int main (int argc, char* argv[])
@@ -56,8 +56,5 @@ int main (int argc, char* argv[])
 
  }   
         cerr << "Allocated boxes: " << Box::getAllocateds() << endl;
-    
-
-    return 0;
 
 }
