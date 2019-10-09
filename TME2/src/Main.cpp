@@ -47,7 +47,7 @@ int main (int argc, char* argv[])
         cerr << "+ Box \"" << b1.getName() << "\" height: " << b1.getHeight() << endl;
 
  }   
-     cerr << "Allocated boxes: " << Box::getAllocateds() << endl;
+        cerr << "Allocated boxes: " << Box::getAllocateds() << endl;
     
 
     return 0;
