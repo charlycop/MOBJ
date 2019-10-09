@@ -6,7 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/GPL_2_text.h
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/Main.cpp
+vector.h
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.h
 
 /users/enseig/oudy/Bureau/MOBJ/TME3/src/timer.h
 ctime
@@ -14,29 +16,21 @@ ctime
 iostream
 -
 
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.cpp
-vector.h
 /users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.h
 vector
+-
+list
 -
 string
 -
 iostream
 -
-timer.h
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/timer.h
-fstream
--
-regex
--
 algorithm
 -
-GPL_2_text.h
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/GPL_2_text.h
-
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.h
-cstddef
+map
 -
-vector
+initializer_list
 -
+timer.h
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/timer.h
 
