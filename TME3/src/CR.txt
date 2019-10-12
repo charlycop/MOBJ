@@ -1,0 +1,37 @@
+=== COMPTE RENDU TME3 MOBJ M1 SESI ===
+== CHARLY OUDY 3414931 ==
+
+= QUESTION 1 =
+Le vecteur contient 2981 elements.
+BackInsert() 0.0 secondes ecoulees
+
+= QUESTION 2 =
+Pour fabriquer un "push_front", on a a chaque nouveau mot, agrandi le vecteur d'une case avec la fonction membre resize(), et puis on a décalé case par case chaque élément du vecteur, pour enfin coller le nouveau mot dans la première.
+
+Le vecteur contient 2981 elements.
+FrontInsert() 0.40 secondes ecoulees
+
+Il y a une grosse différence entre le push_back() et le push_front(), un facteur 100 environ.
+
+= QUESTION 3 =
+On ajoute la fonction de tri après l'ajout de chaque mot.
+
+Le vecteur contient 2981 elements.
+SortEachInsert() 2.140 secondes ecoulees
+
+On a encore multiplié le temps par 5, c'est très coûteux.
+
+On voit donc que la fonction pushback est très efficace par rapport aux autres, lorsqu'il faut ajouter un grand nombre d'éléments en une fois, et les trier à la fin.
+Si on doit garder un vecteur dans l'ordre en permanence à chaque ajout, c'est trop couteux. On préferera d'autres méthodes de stockage dans ce cas.
+
+= QUESTION 4 =
+BackInsert() 0.0 secondes ecoulees
+frontInsert() 0.0 secondes ecoulees
+sortEachInsert() 0.880 secondes ecoulees
+
+On se rend compte que le push_front et le push_back sont équivalent et très rapide, comme le push_back des vecteurs.
+Le tri à chaque ajout est environ 2x plus rapide que sur les vecteurs.
+
+= QUESTION 5 =
+On voit que la map est le plus adapté pour trouvé un élément avec une référence (key).
+
