@@ -6,15 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/Main.cpp
-vector.h
-/users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.h
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/GPL_2_text.h
 
 /users/enseig/oudy/Bureau/MOBJ/TME3/src/timer.h
 ctime
 -
 iostream
 -
+
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.cpp
+vector.h
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.h
+GPL_2_text.h
+/users/enseig/oudy/Bureau/MOBJ/TME3/src/GPL_2_text.h
 
 /users/enseig/oudy/Bureau/MOBJ/TME3/src/vector.h
 vector

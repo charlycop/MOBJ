@@ -5,12 +5,22 @@ using namespace std;
 
 namespace map_bench{
 
+
+    class triZtoA{
+
+    public:
+        const bool operator()(const string &lhs, const string &rhs) const 
+        {
+            return lhs > rhs;
+        }
+    };
+
     void testMap(){
         //On démarre le chrono
         Timer chrono;
         chrono.start();
 
-        map<string, int> mapMots; // On déclare la map
+        map<string, int,triZtoA> mapMots; // On déclare la map
 
         // On copie le tableau de char* dans la map
         for (int i=0; GPL_2_text[i] != NULL ; i++) ++mapMots[GPL_2_text[i]];
@@ -27,6 +37,10 @@ namespace map_bench{
 
         //On affiche le nombre de mots
         cout << endl << "Le nombre de mot dans la map<>. est de : " << totalMots << endl;
+
+                // On arrête le chrono
+        chrono.stop();
+        cout << "testMap() "<< chrono;
 
     }
 }// fin namespace map_bench

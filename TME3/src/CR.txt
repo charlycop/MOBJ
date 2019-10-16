@@ -33,5 +33,13 @@ On se rend compte que le push_front et le push_back sont équivalent et très ra
 Le tri à chaque ajout est environ 2x plus rapide que sur les vecteurs.
 
 = QUESTION 5 =
-On voit que la map est le plus adapté pour trouvé un élément avec une référence (key).
+On voit que la map est le plus adapté pour trouvé un élément avec une référence (key). complexitié Log(n), recherche dicotomique
+
+= QUESTION 6 = 
+On implément une classe avec la définition d'un operator() qui tri dans le sens alphabérique inverse. On pourra ainsi donc initialiser notre map avec un troisième paramètre, du nom de la classe.
+
+le nombre d'éléments dans la map<>. est de : 797
+Le nombre de mot dans la map<>. est de : 2981
+testMap() 0.10 secondes ecoulees
+
 
