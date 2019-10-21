@@ -3,37 +3,34 @@
 
 // Les includes sont mis *à l'extérieur* du namespace.
 #include <string>
-#include "Point.h"
 #include "Node.h"
+
 
 
 namespace Netlist {
 
   // Les *forward declarations* des autres objets de la
   // structure de données sont mis *à l'intérieur* du namespace.
-  class Term;
   class Net;
   class Instance;
   class Cell;
+  class Point;
+  class Node;
 
   class Term {
 
-    enum Type      { Internal=1, External=2 };
-    enum Direction { In=1, Out=2, Inout=3, Tristate=4, Transcv=5, Unknown=6 };
+    
+    
 
-    void*         owner_;
-    std::string   name_;
-    Direction     direction_;
-    Type          type_;
-    Net*          net_;
-    Node          node_;
-
-    static std::string  toString    ( Type );
-    static std::string  toString    ( Direction );
-    static Direction    toDirection ( std::string );
+    
     
 
     public:
+        enum Type      { Internal=1, External=2 };
+        enum Direction { In=1, Out=2, Inout=3, Tristate=4, Transcv=5, Unknown=6 };
+        static std::string  toString    ( Type );
+    static std::string  toString    ( Direction );
+    static Direction    toDirection ( std::string );
 
         Term ( Cell*    , const std::string& name, Direction );
         Term ( Instance*, const Term* modelTerm );
@@ -56,6 +53,14 @@ namespace Netlist {
         inline void  setDirection ( Direction );         //FAIT
                void  setPosition  ( const Point& );      //FAIT
                void  setPosition  ( int x, int y );      //FAIT
+    
+    private:
+        void*         owner_;
+        std::string   name_;
+        Direction     direction_;
+        Type          type_;
+        Net*          net_;
+        Node          node_;
 
 
 
@@ -63,17 +68,17 @@ namespace Netlist {
     
     
 
-    inline bool               Term::isInternal   () const{ return (type_ == 1) ;       }
-    inline bool               Term::isExternal   () const{ return (type_ == 2) ;       }
+    inline bool               Term::isInternal   () const{ return (type_ == Internal) ;       }
+    inline bool               Term::isExternal   () const{ return (type_ == External) ;       }
     inline const std::string& Term::getName      () const{ return name_        ;       }
-    inline Node*              Term::getNode      ()      { return *node_       ;       }
+    inline Node*              Term::getNode      ()      { return &node_       ;       }
     inline Net*               Term::getNet       () const{ return net_         ;       }
     inline Cell*              Term::getCell      () const{ if (isExternal()) return (Cell*)owner_    ; return NULL;}
     inline Instance*          Term::getInstance  () const{ if (isInternal()) return (Instance*)owner_; return NULL;}
-    inline Direction          Term::getDirection () const{ return direction_   ;       }
+    inline Term::Direction    Term::getDirection () const{ return direction_   ;       }
     inline Point              Term::getPosition  () const{ return node_.Node::getPosition(); }
-    inline Type               Term::getType      () const{ return type_        ;       }
-    inline void               Term::setDirection ( Direction ){ direction_ = Direction;}
+    inline Term::Type         Term::getType      () const{ return type_        ;       }
+    inline void               Term::setDirection ( Direction d ){ direction_ = d;}
 
 
 }

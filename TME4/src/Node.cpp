@@ -24,7 +24,7 @@ namespace Netlist {
 
   Node::~Node ()
   {
-    if (getNet()) getNet()->remove( this );
+    //if (getNet()) getNet()->remove( this );
   }
 
 

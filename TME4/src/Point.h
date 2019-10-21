@@ -4,7 +4,6 @@
 #define NETLIST_POINT_H
 
 #include <iostream>
-#include "Indentation.h"
 
 namespace Netlist {
 

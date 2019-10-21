@@ -5,7 +5,6 @@
 
 #include <iostream>
 #include <vector>
-#include "Indentation.h"
 #include "Point.h"
 
 
@@ -13,6 +12,8 @@ namespace Netlist {
 
   class Term;
   class Net;
+  class Netlist;
+  class Indentation;
 
 
   class Node {

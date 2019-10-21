@@ -6,12 +6,12 @@ Le vecteur contient 2981 elements.
 BackInsert() 0.0 secondes ecoulees
 
 = QUESTION 2 =
-Pour fabriquer un "push_front", on a a chaque nouveau mot, agrandi le vecteur d'une case avec la fonction membre resize(), et puis on a décalé case par case chaque élément du vecteur, pour enfin coller le nouveau mot dans la première.
+Pour fabriquer un "push_front", on a a chaque nouveau mot, agrandi le vecteur d'une case avec la fonction membre resize(), et puis on a décalé case par case chaque élément du vecteur, pour enfin copier le nouveau mot dans la premièrecase
 
 Le vecteur contient 2981 elements.
 FrontInsert() 0.40 secondes ecoulees
 
-Il y a une grosse différence entre le push_back() et le push_front(), un facteur 100 environ.
+Il y a une grosse différence de temps entre le push_back() et le push_front(), un facteur 100 environ.
 
 = QUESTION 3 =
 On ajoute la fonction de tri après l'ajout de chaque mot.
@@ -21,7 +21,8 @@ SortEachInsert() 2.140 secondes ecoulees
 
 On a encore multiplié le temps par 5, c'est très coûteux.
 
-On voit donc que la fonction pushback est très efficace par rapport aux autres, lorsqu'il faut ajouter un grand nombre d'éléments en une fois, et les trier à la fin.
+On voit donc que la fonction pushback est très efficace par rapport aux autres. En effet, le vecteur étant un tableau contigu en mémoire, c'est presque "gratuit" pour le système de rajouter une case supplémentaire. lorsqu'il faut ajouter un grand nombre d'éléments en une fois, et les trier à la fin, c'est très efficace.
+
 Si on doit garder un vecteur dans l'ordre en permanence à chaque ajout, c'est trop couteux. On préferera d'autres méthodes de stockage dans ce cas.
 
 = QUESTION 4 =
@@ -29,13 +30,16 @@ BackInsert() 0.0 secondes ecoulees
 frontInsert() 0.0 secondes ecoulees
 sortEachInsert() 0.880 secondes ecoulees
 
-On se rend compte que le push_front et le push_back sont équivalent et très rapide, comme le push_back des vecteurs.
-Le tri à chaque ajout est environ 2x plus rapide que sur les vecteurs.
+On se rend compte que le push_front et le push_back sont équivalent et très rapide, comme le push_back des vecteurs. En effet, la liste ne se soucis pas de l'emplacement mémoire contigue, mais met simplement à jour les pointeurs "next" et "previous" de chaque élément de la liste.
+
+Le tri à chaque ajout est environ 2x plus rapide que sur les vecteurs, car on ne manipule pas les données de la liste, mais seulement les pointeurs entre chaque case.
 
 = QUESTION 5 =
-On voit que la map est le plus adapté pour trouvé un élément avec une référence (key). complexitié Log(n), recherche dicotomique
+On voit que la map est le plus adapté pour trouvé un élément avec une référence (key). complexitié Log(n), recherche dicotomique. Il s'agit d'un arbre qui permet de trouver en très peu d'itération la clé. Un grand nombre d'éléments influence peu le temps de recherche. Elle est cependant couteuse a l'insertion, et de plus en plus couteuse en fonction du nombrer d'éléments.
 
 = QUESTION 6 = 
+Dans son fonctionnement la map, tri clés par défaut dans le sens alphabétique, mais on peut changer cette confition, et lui demander de trier de façon différente. Cette option, ce fait au moment de créer la map afin que l'arbre de map soit fabriqué correctement et efficacement.
+
 On implément une classe avec la définition d'un operator() qui tri dans le sens alphabérique inverse. On pourra ainsi donc initialiser notre map avec un troisième paramètre, du nom de la classe.
 
 le nombre d'éléments dans la map<>. est de : 797

@@ -5,14 +5,13 @@
 
 #include <string>
 #include <vector>
-#include "Indentation.h"
 
 namespace Netlist {
 
   class Instance;
   class Net;
   class Term;
-
+  class Indentation;
 
   class Cell {
     public:
