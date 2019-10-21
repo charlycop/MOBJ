@@ -1,8 +1,8 @@
+#include "Node.h"
 #include "Term.h"
 #include "Net.h"
 #include "Instance.h"
 #include "Cell.h"
-#include "Node.h"
 
 namespace Netlist {
 
@@ -13,7 +13,9 @@ namespace Netlist {
     owner_(owner), name_(modelTerm->getName()),direction_(modelTerm->getDirection()),type_(Internal),net_(modelTerm->getNet()), node_(this){}
 
     Term::~Term(){
-        //net_->nodes_[node_.id_] = nullptr;
+        for(auto& node : net_->getNodes()){
+            if (node->getId() ==  node_.getId()) node_.setId(NULL) ;
+        }
     }
   
     Cell* Term::getOwnerCell() const{

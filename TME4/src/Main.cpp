@@ -6,6 +6,7 @@
 #include <memory>
 using namespace std;
 
+#include "Node.h"
 #include "Term.h"
 #include "Net.h"
 #include "Instance.h"

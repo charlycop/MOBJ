@@ -1,11 +1,11 @@
 // -*- explicit-buffer-name: "Node.cpp<M1-MOBJ/4-5>" -*-
 
 #include  <limits>
-#include  "Node.h"
-#include  "Term.h"
-#include  "Net.h"
-#include  "Instance.h"
-#include  "Cell.h"
+#include "Node.h"
+#include "Term.h"
+#include "Net.h"
+#include "Instance.h"
+#include "Cell.h"
 
 namespace Netlist {
 

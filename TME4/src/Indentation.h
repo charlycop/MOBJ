@@ -26,7 +26,6 @@ namespace Netlist {
 
   extern Indentation  indent;
 
-
 }  // Netlist namespace.
 
 #endif //  NETLIST_INDENTATION_H

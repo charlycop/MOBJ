@@ -5,9 +5,13 @@
 #include  "Term.h"
 #include  "Net.h"
 #include  "Instance.h"
+#include  "Node.h"
 
 
 namespace Netlist {
+   void  toXml ( std::ostream& ){
+    // Declaration of the class...
+  };
 
   using namespace std;
 
