@@ -7,37 +7,39 @@
 namespace Netlist {
 
     Term::Term ( Cell* owner , const std::string& name, Direction direction): 
-    owner_(owner), name_(name),direction_(direction),type_(External),net_(NULL), node_(this) {}
+    owner_(owner), name_(name),direction_(direction),type_(External),net_(NULL), node_(this) {
+        //std::cout << "on est dans le premier constructeur de TERM" << std::endl;
+        static_cast<Cell*>(owner_) -> add(this);
+    }
 
     Term::Term ( Instance* owner, const Term* modelTerm ):
-    owner_(owner), name_(modelTerm->getName()),direction_(modelTerm->getDirection()),type_(Internal),net_(modelTerm->getNet()), node_(this){}
+    owner_(owner), name_(modelTerm->getName()),direction_(modelTerm->getDirection()),type_(Internal),net_(modelTerm->getNet()), node_(this){
+        static_cast<Instance*>(owner_) -> add(this);
+    }
 
     Term::~Term(){
-        for(auto& node : net_->getNodes()){
-            if (node->getId() ==  node_.getId()) node_.setId(NULL) ;
-        }
+        net_->remove(&node_);
     }
   
     Cell* Term::getOwnerCell() const{
-        //if(isInternal()){ return &(getInstance()->owner_);}
+        if(isInternal()){ return (getInstance()->getCell());}
         return (Cell*)owner_;
     }
 
     void Term::setNet (Net* newNet){  net_ = newNet;   }
 
     void Term::setNet (const std::string& nameToFind){
-       // Cell* cell = getOwnerCell();
-        //for(Net net : cell->getNets()){
-          //for (Cell* it=cell.getNets().begin();it<cell.getNets().end();++it){
-            //if (net->name_ == nameToFind){
-               // net_ = net->name_;
-           //     break;
+       /* Cell* cell = getOwnerCell();
+        for(auto& net : cell->getNets()){
+            if (net->name_ == nameToFind){
+                net_ = net->name_;
+                break;*/
             }
         
     
 
     void  Term::setPosition  ( const Point& p){
-       // node_.Node::setPosition(p);
+       //node_.Node::setPosition(p);
     }
 
     void  Term::setPosition  ( int x, int y ){
