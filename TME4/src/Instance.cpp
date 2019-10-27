@@ -6,10 +6,15 @@
 #include "Net.h"
 #include "Instance.h"
 #include "Cell.h"
+#include "Indentation.h"
 
 namespace Netlist{
 
     class Term;
+
+    void  Instance::toXml ( std::ostream& stream){
+        stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << (getMasterCell())->getName() << "\" x=" << getPosition().getX() <<" y=" << getPosition().getY() << "\"/>\n";
+    }
 
     Instance::Instance      ( Cell* owner, Cell* model, const std::string& name):
     owner_(owner), masterCell_(model), name_(name){
@@ -31,13 +36,19 @@ namespace Netlist{
     }
 
     bool  Instance::connect       ( const std::string& name, Net* n){
+       /* std::cout << "On rentre dans Instance::connect() avec name=" << name << std::endl;
         Term* term = getTerm(name);
-        if (term == NULL){
-            return false;
-        }
+        std::cout << "On a recupere le pointeur *term = " << term << std::endl;
+        if (term == NULL) return false;
 
-        term->setNet(n); 
+        
         return true;
+*/
+        Term* term = getTerm( name );
+    if (term == NULL) return false;
+ 
+    term->setNet( n );
+    return true;
     }
 
 

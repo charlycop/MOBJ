@@ -1,12 +1,21 @@
 #include <iostream>
+#include  <limits>
 #include <string>
 #include "Node.h"
 #include "Term.h"
 #include "Net.h"
 #include "Instance.h"
 #include "Cell.h"
+#include "Indentation.h"
 
 namespace Netlist{
+    using namespace std;
+
+    const size_t  Net::noid = numeric_limits<size_t>::max();
+
+    void  Net::toXml ( std::ostream& stream){
+        stream << indent << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\"/>\n";
+    }
 
     Net::Net     ( Cell* owner, const std::string& name, Term::Type type):
     owner_(owner), name_(name), id_(owner->Cell::newNetId ()), type_(type){

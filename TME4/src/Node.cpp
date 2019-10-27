@@ -15,7 +15,7 @@ namespace Netlist {
   const size_t  Node::noid = numeric_limits<size_t>::max();
 
 
-  Node::Node ( Term* term, size_t id  )
+  Node::Node ( Term* term, size_t id )
     : id_      (id)
     , term_    (term)
     , position_()

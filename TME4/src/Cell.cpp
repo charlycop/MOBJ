@@ -1,19 +1,37 @@
 // -*- explicit-buffer-name: "Cell.cpp<M1-MOBJ/4-5>" -*-
 
 #include  <cstdlib>
+#include <iostream>
 #include  "Cell.h"
 #include  "Term.h"
 #include  "Net.h"
 #include  "Instance.h"
 #include  "Node.h"
+#include  "Indentation.h"
+
+using namespace std;
 
 
 namespace Netlist {
-   void  toXml ( std::ostream& ){
-    // Declaration of the class...
-  };
 
-  using namespace std;
+   void  Cell::toXml ( std::ostream& stream){
+
+      stream << "Construction du modele <" << name_ << ">.\n";
+      stream << "<?xml version=\"1.0\"?>\n";
+      stream << indent++ << "<cell name=\"" << name_ << "\">\n";
+      stream << indent++ << "<terms>\n";
+      for(auto term : getTerms()) term->toXml(stream);
+      stream << --indent <<"</terms>\n";
+      stream << indent++ << "<instances>\n";
+      for(auto instance : getInstances()) instance->toXml(stream);
+      stream << --indent << "</instances>\n";
+      stream << indent++ <<"<nets>\n";
+      for(auto net : getNets()) net->toXml(stream);
+      stream << --indent << "</nets>\n";
+      stream << --indent << "</cell>\n\n";
+  }
+
+ 
 
 
   vector<Cell*>  Cell::cells_;
