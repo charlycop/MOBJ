@@ -6,6 +6,7 @@
 #include "Net.h"
 #include "Instance.h"
 #include "Cell.h"
+#include "Indentation.h"
 
 namespace Netlist {
 
@@ -14,6 +15,9 @@ namespace Netlist {
 
   const size_t  Node::noid = numeric_limits<size_t>::max();
 
+  void  Node::toXml ( std::ostream& stream){
+     stream << indent << "ID DU NODE : "<< getId() << "\n";
+  }
 
   Node::Node ( Term* term, size_t id )
     : id_      (id)

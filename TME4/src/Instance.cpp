@@ -13,7 +13,7 @@ namespace Netlist{
     class Term;
 
     void  Instance::toXml ( std::ostream& stream){
-        stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << (getMasterCell())->getName() << "\" x=" << getPosition().getX() <<" y=" << getPosition().getY() << "\"/>\n";
+        stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << getMasterCell()->getName() << "\" x=" << getPosition().getX() <<" y=" << getPosition().getY() << "\"/>\n";
     }
 
     Instance::Instance      ( Cell* owner, Cell* model, const std::string& name):
@@ -31,7 +31,7 @@ namespace Netlist{
             if (term->getName() == name) return term;
         }
 
-        std::cout << "Attention, Term non trouvé dans la fonction getTerm() de la classe Instance!" << std::endl;
+        //std::cout << "Attention, Term non trouvé dans la fonction getTerm() de la classe Instance!" << std::endl;
         return NULL;
     }
 

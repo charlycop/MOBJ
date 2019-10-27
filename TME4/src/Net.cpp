@@ -14,7 +14,9 @@ namespace Netlist{
     const size_t  Net::noid = numeric_limits<size_t>::max();
 
     void  Net::toXml ( std::ostream& stream){
-        stream << indent << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\"/>\n";
+        stream << indent++ << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\"/>\n";
+        for(auto node : getNodes()) node->toXml(stream);
+        --indent;
     }
 
     Net::Net     ( Cell* owner, const std::string& name, Term::Type type):

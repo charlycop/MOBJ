@@ -16,18 +16,23 @@ namespace Netlist {
 
    void  Cell::toXml ( std::ostream& stream){
 
+      //DEBUT CELL
       stream << "Construction du modele <" << name_ << ">.\n";
       stream << "<?xml version=\"1.0\"?>\n";
       stream << indent++ << "<cell name=\"" << name_ << "\">\n";
+      //TERMS
       stream << indent++ << "<terms>\n";
       for(auto term : getTerms()) term->toXml(stream);
       stream << --indent <<"</terms>\n";
+      //INSTANCES
       stream << indent++ << "<instances>\n";
       for(auto instance : getInstances()) instance->toXml(stream);
       stream << --indent << "</instances>\n";
+      //NETS
       stream << indent++ <<"<nets>\n";
       for(auto net : getNets()) net->toXml(stream);
       stream << --indent << "</nets>\n";
+      //FIN CELL
       stream << --indent << "</cell>\n\n";
   }
 
