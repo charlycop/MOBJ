@@ -24,14 +24,33 @@ namespace Netlist{
 
         owner_ -> add(this);
 
+        //On récupère le term concerné
+        //Term* term = (owner_ -> getTerm(name));
+        //std::cout << "Term recupere : " << term->getName()<<std::endl;
+        //On met a jour le pointeur du term ver sle net
+       // std::cout << "term->net avant : " << term->getNet() << std::endl;
+        //term->setNet(this);
+        //std::cout << "term->net apres : " << term->getNet() << std::endl;
+        /*//On récupère l'objet node du term
+        Node* n = (term->getNode());
+        //On met à jour son id 
+        n->setId(getFreeNodeId());
+        //On ajoute le nodeau vedcteur des nodes dans net
+        add(n);
+        
+        toXml(std::cout);*/
+
     }
     Net::~Net(){}
 
     void Net::add (Node* n){ 
         size_t freeNode = getFreeNodeId();
-
-        if(freeNode == nodes_.size()-1) nodes_.push_back(n);
+        //std::cout << "freeNode =" << freeNode << std::endl;
+        //std::cout << "node.size() avant = " << nodes_.size() << std::endl;
+        if(freeNode >= nodes_.size())   nodes_.push_back(n);
         else                            nodes_[freeNode] = n;
+        //std::cout << "node.size() apres = " << nodes_.size() << std::endl;
+
     }
 
     bool  Net::remove ( Node* n){

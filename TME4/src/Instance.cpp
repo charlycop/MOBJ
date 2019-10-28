@@ -19,6 +19,14 @@ namespace Netlist{
     Instance::Instance      ( Cell* owner, Cell* model, const std::string& name):
     owner_(owner), masterCell_(model), name_(name){
         owner_ -> add(this);
+
+        for(auto& t : masterCell_->getTerms()) {
+            terms_.push_back(t);
+        }
+
+        for(auto& t : terms_){
+            t->setType(Term::Internal);
+        }
     }
     
     Instance::~Instance      (){
@@ -27,7 +35,7 @@ namespace Netlist{
     
     Term* Instance::getTerm       ( const std::string& name) const{
         for(auto term : terms_){
-            std::cout << "on rentre ici" << std::endl;
+            //std::cout << "on rentre ici" << std::endl;
             if (term->getName() == name) return term;
         }
 
@@ -45,9 +53,11 @@ namespace Netlist{
         return true;
 */
         Term* term = getTerm( name );
-    if (term == NULL) return false;
- 
-    term->setNet( n );
+        //std::cout << "Instance::connect()" << name << std::endl;
+        if (term == NULL) return false;
+        term->setNet( n );
+        
+
     return true;
     }
 

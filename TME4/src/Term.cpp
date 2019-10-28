@@ -29,6 +29,7 @@ namespace Netlist {
     Term::Term ( Instance* owner, const Term* modelTerm ):
     owner_(owner), name_(modelTerm->getName()),direction_(modelTerm->getDirection()),type_(Internal),net_(modelTerm->getNet()), node_(this){
         static_cast<Instance*>(owner_) -> add(this);
+
     }
 
     Term::~Term(){
@@ -40,7 +41,25 @@ namespace Netlist {
         return (Cell*)owner_;
     }
 
-    void Term::setNet (Net* newNet){  net_ = newNet;   }
+    void Term::setNet (Net* newNet){  
+        net_ = newNet;   
+        //On récupère l'objet node du term
+        Node* n = (getNode());
+        //std::cout << "on a crécupéré le node : " << n << "pour le net : "<< net_->getName() << std::endl;
+        //On ajoute le nodeau vedcteur des nodes dans net
+        net_->add(n);
+
+        size_t emplacement=0;
+        for(auto node : net_->getNodes()){
+
+            if(node == n) {
+              //  std::cout << "node : " << node << " - n : "<< n << "setId("<<emplacement << ")" <<std::endl;
+                n->setId(emplacement);
+            }
+            ++emplacement;
+        }
+
+    }
 
     void Term::setNet (const std::string& nameToFind){
         /*Cell* cell = getOwnerCell();

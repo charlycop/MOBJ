@@ -80,7 +80,6 @@ int main ( int argc, char* argv[] )
   halfadder->connect( "cout", ha_cout );
 
   ha_xor2->connect( "i0", ha_a    );
-  
   ha_xor2->connect( "i1", ha_b    );
   ha_xor2->connect(  "q", ha_sout );
   ha_and2->connect( "i0", ha_a    );

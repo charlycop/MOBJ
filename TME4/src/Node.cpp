@@ -16,7 +16,12 @@ namespace Netlist {
   const size_t  Node::noid = numeric_limits<size_t>::max();
 
   void  Node::toXml ( std::ostream& stream){
-     stream << indent << "ID DU NODE : "<< getId() << "\n";
+    //<node term="a" id="0" x="0" y="0"/>
+    //<node term="i1" instance="xor2_1" id="1" x="0" y="0"/>
+     if (getTerm()->isExternal())
+          stream << indent << "<node term=\"" << getTerm()->getName() <<"\" id=\""<< getId() << "\" x=\"" <<getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
+     else stream << indent << "<node term=\"" << getTerm()->getName() << "\" instance=\"" << "noinstance" <<"\" id=\""<< getId() << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
+
   }
 
   Node::Node ( Term* term, size_t id )
