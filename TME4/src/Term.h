@@ -65,7 +65,7 @@ namespace Netlist {
         inline Point              getPosition  () const; //FAIT
         inline Type               getType      () const; //FAIT
         inline void               setType      (Type)  ; 
-
+        inline void               setOwner     (void*);
                void  setNet       ( Net* );              //FAIT
                void  setNet       ( const std::string& );//FAIT
         inline void  setDirection ( Direction );         //FAIT
@@ -87,6 +87,7 @@ namespace Netlist {
     
     
 
+    inline void               Term::setOwner     (void* owner) { owner_ = owner;};
     inline void               Term::setType      (Type t){ type_ = t; }   
     inline bool               Term::isInternal   () const{ return (type_ == Internal) ;       }
     inline bool               Term::isExternal   () const{ return (type_ == External) ;       }

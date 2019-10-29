@@ -27,11 +27,11 @@ namespace Netlist {
     }
 
     Term::Term ( Instance* owner, const Term* modelTerm ):
-    owner_(owner), name_(modelTerm->getName()),direction_(modelTerm->getDirection()),type_(Internal),net_(modelTerm->getNet()), node_(this){
+    owner_(owner), name_(modelTerm->getName()),direction_(modelTerm->getDirection()),
+    type_(Internal),net_(modelTerm->getNet()), node_(this, Net::noid){
         static_cast<Instance*>(owner_) -> add(this);
 
     }
-
     Term::~Term(){
         net_->remove(&node_);
     }

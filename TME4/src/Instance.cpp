@@ -18,14 +18,19 @@ namespace Netlist{
 
     Instance::Instance      ( Cell* owner, Cell* model, const std::string& name):
     owner_(owner), masterCell_(model), name_(name){
-        owner_ -> add(this);
+        (owner_) -> add(this);
 
         for(auto& t : masterCell_->getTerms()) {
+            //std::cout << "modelterm :" << t << std::endl;
+            //Term toInsert(this, t);
+            //terms_.push_back(&toInsert);
             terms_.push_back(t);
         }
 
         for(auto& t : terms_){
             t->setType(Term::Internal);
+            t->setOwner(this);
+            //std::cout << "Owner name : " << (t->getInstance())->getName() << std::endl;
         }
     }
     
