@@ -10,8 +10,6 @@
 
 namespace Netlist{
 
-    class Term;
-
     void  Instance::toXml ( std::ostream& stream){
         stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << getMasterCell()->getName() << "\" x=" << getPosition().getX() <<" y=" << getPosition().getY() << "\"/>\n";
     }
@@ -20,17 +18,8 @@ namespace Netlist{
     owner_(owner), masterCell_(model), name_(name){
         (owner_) -> add(this);
 
-        for(auto& t : masterCell_->getTerms()) {
-            //std::cout << "modelterm :" << t << std::endl;
-            //Term toInsert(this, t);
-            //terms_.push_back(&toInsert);
-            terms_.push_back(t);
-        }
-
-        for(auto& t : terms_){
-            t->setType(Term::Internal);
-            t->setOwner(this);
-            //std::cout << "Owner name : " << (t->getInstance())->getName() << std::endl;
+        for(const auto t : masterCell_->getTerms()) {
+            terms_.push_back(new Term(this, t));
         }
     }
     

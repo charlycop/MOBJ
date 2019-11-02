@@ -20,7 +20,7 @@ namespace Netlist {
     public:
       static const size_t  noid;
     public:
-                      Node        ( Term*, size_t id=noid );
+                      Node        ( Term*, size_t id=noid);
                      ~Node        ();
       inline  Point   getPosition () const;
       inline  void    setPosition ( const Point& );

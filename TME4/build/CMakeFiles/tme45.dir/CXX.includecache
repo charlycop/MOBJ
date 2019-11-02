@@ -48,22 +48,6 @@ vector
 limits
 -
 
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Node.cpp
-limits
--
-Node.h
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Node.h
-Term.h
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Term.h
-Net.h
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Net.h
-Instance.h
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Instance.h
-Cell.h
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Cell.h
-Indentation.h
-/users/enseig/oudy/Bureau/MOBJ/TME4/src/Indentation.h
-
 /users/enseig/oudy/Bureau/MOBJ/TME4/src/Node.h
 iostream
 -
