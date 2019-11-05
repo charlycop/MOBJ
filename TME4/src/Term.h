@@ -22,8 +22,9 @@ namespace Netlist {
         
 
         static std::string toString    (Type t){
-           if (t==Internal) return "Internal";
-           return "External";
+          if (t==Internal)
+            return "Internal";
+          return "External";
         }
           
 
