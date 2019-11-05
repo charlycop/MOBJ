@@ -1,25 +1,21 @@
 #ifndef  NETLIST_NET_H
 #define  NETLIST_NET_H
+
 #include <vector>
-#include  <limits>
+#include <limits>
 
 namespace Netlist{
 
-    class Cell;
-    class Node;
-    class Indentation;
+class Cell;
+class Node;
 
 class Net{
-
-
     
     Cell*               owner_;
     std::string         name_;
     unsigned int        id_;
     Term::Type          type_;
     std::vector<Node*>  nodes_;
-
-public:
     
 public:
     static const size_t  noid;

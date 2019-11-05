@@ -1,4 +1,4 @@
-#include  <cstdlib>
+#include <cstdlib>
 #include <iostream>
 #include <vector>
 #include "Node.h"
@@ -29,33 +29,20 @@ namespace Netlist{
     
     Term* Instance::getTerm       ( const std::string& name) const{
         for(auto term : terms_){
-            //std::cout << "on rentre ici" << std::endl;
-            if (term->getName() == name) return term;
+            if (term->getName() == name)
+                return term;
         }
-
-        //std::cout << "Attention, Term non trouvé dans la fonction getTerm() de la classe Instance!" << std::endl;
         return NULL;
     }
 
     bool  Instance::connect       ( const std::string& name, Net* n){
-       /* std::cout << "On rentre dans Instance::connect() avec name=" << name << std::endl;
-        Term* term = getTerm(name);
-        std::cout << "On a recupere le pointeur *term = " << term << std::endl;
-        if (term == NULL) return false;
-
-        
-        return true;
-*/
         Term* term = getTerm( name );
-        //std::cout << "Instance::connect()" << name << std::endl;
-        if (term == NULL) return false;
+        if (term == NULL)
+            return false;
         term->setNet( n );
         
-
-    return true;
+        return true;
     }
-
-
 
     void  Instance::remove        ( Term* t){
         for (std::vector<Term* > ::iterator it = terms_.begin() ; it != terms_.end() ; ++it){
@@ -65,7 +52,6 @@ namespace Netlist{
         std::cout << "Attention, Term non trouvé dans la fonction remove() de la classe Instance!" << std::endl;
     }
     
-
     void  Instance::setPosition   ( const Point& p){
         position_.setX(p.getX());
         position_.setY(p.getY()); 

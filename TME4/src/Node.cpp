@@ -36,11 +36,6 @@ namespace Netlist {
     //if (getNet()) getNet()->remove( this );
   }
 
-
   inline Net* Node::getNet () const { return term_->getNet(); }
-
-
-// Node::toXml() à écrire ici.
-
 
 }  // Netlist namespace.

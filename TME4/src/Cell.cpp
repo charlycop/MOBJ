@@ -14,7 +14,7 @@ using namespace std;
 
 namespace Netlist {
 
-   void  Cell::toXml ( std::ostream& stream){
+  void  Cell::toXml ( std::ostream& stream){
 
       //DEBUT CELL
       stream << "Construction du modele <" << name_ << ">.\n";

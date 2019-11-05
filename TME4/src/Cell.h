@@ -9,12 +9,10 @@
 namespace Netlist {
 
    void  toXml ( std::ostream& );
-    // Declaration of the class...
-  
 
-  class Instance;
   class Net;
   class Term;
+  class Instance;
 
   class Cell {
     public:

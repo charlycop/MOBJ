@@ -4,10 +4,10 @@
 #include <vector>
 
 namespace Netlist{
-    class Cell;
-    class Node;
-    class Point;
-    class Indentation;
+
+class Cell;
+class Point;
+class Indentation;
 
 class Instance{
 
@@ -46,10 +46,8 @@ private:
     inline Cell*                     Instance::getCell       () const  { return owner_;       }
     inline const std::vector<Term*>& Instance::getTerms      () const  { return terms_;       }
     inline Point                     Instance::getPosition   () const  { return position_;    }
-    inline void                      Instance::add           ( Term* t){ terms_.push_back(t); 
-
-
-                                                                                }
+    inline void                      Instance::add           ( Term* t){ terms_.push_back(t); }
+    
 }  // Netlist namespace.
 
 #endif  // NETLIST_INSTANCE_H
