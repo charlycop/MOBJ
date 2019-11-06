@@ -64,11 +64,11 @@ namespace Netlist {
     }
 
     void  Term::setPosition  ( const Point& p){
-       //node_.Node::setPosition(p);
+       node_.setPosition(p);
     }
 
     void  Term::setPosition  ( int x, int y ){
-        //node_.Node::setPosition(x,y);
+        node_.setPosition(x,y);
     }
 
 }
