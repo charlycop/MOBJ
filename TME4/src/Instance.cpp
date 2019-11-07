@@ -19,7 +19,6 @@ namespace Netlist{
         (owner_) -> add(this);
 
         for(const auto t : masterCell_->getTerms()) {
-            //terms_.push_back(new Term(this, t));
             new Term(this, t);
         }
     }

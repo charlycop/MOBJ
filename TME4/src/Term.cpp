@@ -34,15 +34,15 @@ namespace Netlist {
     }
   
     Cell* Term::getOwnerCell() const{
-        if(isInternal()){ return (getInstance()->getCell());}
-        return (Cell*)owner_;
+        if(isInternal()){ return static_cast<Cell*>(getInstance()->getCell());}
+        return static_cast<Cell*>(owner_);
     }
 
     void Term::setNet (Net* newNet){  
         net_ = newNet;   
         //On récupère l'objet node du term
         Node* n = (getNode());
-        //On ajoute le nodeau vedcteur des nodes dans net
+        //On ajoute le node au vecteur des nodes dans net
         net_->add(n);
 
         size_t emplacement=0;
