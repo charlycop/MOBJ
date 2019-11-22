@@ -1,4 +1,4 @@
-/users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/../work/tme45
+/users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/../work/tme6
 /users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/Indentation.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/Term.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/Net.h
