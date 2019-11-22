@@ -19,11 +19,7 @@ namespace Netlist {
         Term* newTerm = nullptr;
 
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "term"){ // Si j'ai bien un term
-           /* cout << "Direction  : "<< xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"direction")) << endl;
-            cout << "Name : " <<      xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name")) << endl;
-            cout << "x : " <<         xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x")) << endl;
-            cout << "y : " <<         xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y")) << endl;
-*/
+           
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string    direction = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"direction"));
             string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));

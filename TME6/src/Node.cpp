@@ -22,15 +22,16 @@ namespace Netlist {
      else stream << indent << "<node term=\"" << getTerm()->getName() << "\" instance=\"" << getTerm()->getInstance()->getName() <<"\" id=\""<< getId() << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
   }
 
-  bool  Node::fromXml(Net* cell, xmlTextReaderPtr reader){
-    return false;
+  bool  Node::fromXml(Net* net, xmlTextReaderPtr reader){
+        string         term = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
+        string         type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
+        string         id   = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
+        cout << id <<"/"<< term <<"/" << type << endl;
+        return true;
+            //cell->getTerm(term)->getNode()->setId(atoi(id.c_str()));
   }
 
-  Node::Node ( Term* term, size_t id )
-    : id_      (id)
-    , term_    (term)
-    , position_()
-  { }
+  Node::Node ( Term* term, size_t id ): id_(id), term_(term), position_(){}
 
 
   Node::~Node ()

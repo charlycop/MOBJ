@@ -15,7 +15,7 @@ class Instance{
 
 public:
     Instance      ( Cell* owner, Cell* model, const std::string& );
-    ~Instance      ();
+     ~Instance      ();
 
     inline const std::string&        getName       () const;
     inline Cell*                     getMasterCell () const;
