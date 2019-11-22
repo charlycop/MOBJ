@@ -350,6 +350,30 @@ Term.cpp.s:
 	$(MAKE) -f CMakeFiles/tme6.dir/build.make CMakeFiles/tme6.dir/Term.cpp.s
 .PHONY : Term.cpp.s
 
+XmlUtil.o: XmlUtil.cpp.o
+.PHONY : XmlUtil.o
+
+# target to build an object file
+XmlUtil.cpp.o:
+	$(MAKE) -f CMakeFiles/tme6.dir/build.make CMakeFiles/tme6.dir/XmlUtil.cpp.o
+.PHONY : XmlUtil.cpp.o
+
+XmlUtil.i: XmlUtil.cpp.i
+.PHONY : XmlUtil.i
+
+# target to preprocess a source file
+XmlUtil.cpp.i:
+	$(MAKE) -f CMakeFiles/tme6.dir/build.make CMakeFiles/tme6.dir/XmlUtil.cpp.i
+.PHONY : XmlUtil.cpp.i
+
+XmlUtil.s: XmlUtil.cpp.s
+.PHONY : XmlUtil.s
+
+# target to generate assembly for a file
+XmlUtil.cpp.s:
+	$(MAKE) -f CMakeFiles/tme6.dir/build.make CMakeFiles/tme6.dir/XmlUtil.cpp.s
+.PHONY : XmlUtil.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -387,6 +411,9 @@ help:
 	@echo "... Term.o"
 	@echo "... Term.i"
 	@echo "... Term.s"
+	@echo "... XmlUtil.o"
+	@echo "... XmlUtil.i"
+	@echo "... XmlUtil.s"
 .PHONY : help
 
 

@@ -5,14 +5,15 @@
 
 #include <string>
 #include <vector>
+#include "XmlUtil.h"
 
 namespace Netlist {
 
-   void  toXml ( std::ostream& );
-
+  void  toXml ( std::ostream& );
   class Net;
   class Term;
   class Instance;
+
 
   class Cell {
     public:
@@ -37,7 +38,10 @@ namespace Netlist {
                    void                    remove            ( Net* );
                    bool                    connect           ( const std::string& name, Net* net );
                    unsigned int            newNetId          ();
-                   void  toXml ( std::ostream& stream);
+      static       Cell*                   fromXml           ( xmlTextReaderPtr reader );
+      static       Cell*                   load              ( const std::string& cellName );
+                   void                    save              () const;
+                   void                    toXml ( std::ostream& stream) const;
     private:
       static  std::vector<Cell*>      cells_;
               std::string             name_;

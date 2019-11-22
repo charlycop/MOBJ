@@ -6,3 +6,4 @@
 /users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/Point.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/Node.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/Cell.h
+/users/enseig/oudy/Bureau/MOBJ/TME6/build/../install/include/XmlUtil.h

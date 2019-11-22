@@ -7,6 +7,7 @@ FILE(REMOVE_RECURSE
   "CMakeFiles/tme6.dir/Node.cpp.o"
   "CMakeFiles/tme6.dir/Cell.cpp.o"
   "CMakeFiles/tme6.dir/Main.cpp.o"
+  "CMakeFiles/tme6.dir/XmlUtil.cpp.o"
   "tme6.pdb"
   "tme6"
 )

@@ -4,6 +4,8 @@
 // Les includes sont mis *à l'extérieur* du namespace.
 #include <string>
 #include "Node.h"
+#include "XmlUtil.h"
+
 
 namespace Netlist {
 
@@ -39,7 +41,18 @@ namespace Netlist {
             }
         }
 
-        static Direction    toDirection ( std::string );
+        static Type toType(std::string type){
+            if      (type == "Internal")       return Internal;
+            return External;
+        }
+        static Direction    toDirection ( std::string dir){
+            if      (dir == "In")       return In;
+            else if (dir == "Out")      return Out;
+            else if (dir == "Inout")    return Inout;
+            else if (dir == "Tristate") return Tristate;
+            else if (dir == "Transcv")  return Transcv;
+            return Unknown;
+        }
 
         Term ( Cell*    , const std::string& name, Direction );
         Term ( Instance*, const Term* modelTerm );
@@ -56,15 +69,14 @@ namespace Netlist {
         inline Direction          getDirection () const; 
         inline Point              getPosition  () const; 
         inline Type               getType      () const; 
-        //inline void               setType      (Type)  ; 
-        //inline void               setOwner     (void*);
+
                void  setNet       ( Net* );              
                void  setNet       ( const std::string& );
         inline void  setDirection ( Direction );         
                void  setPosition  ( const Point& );      
                void  setPosition  ( int x, int y );    
-               void  toXml ( std::ostream& stream);
-    
+               void  toXml        ( std::ostream& stream );
+        static Term* fromXml      (Cell*, xmlTextReaderPtr);
     private:
         void*         owner_;
         std::string   name_;
@@ -74,9 +86,7 @@ namespace Netlist {
         Node          node_;
 
 }; // Fin class Term
-    
-    //inline void               Term::setOwner     (void* owner) { owner_ = owner;};
-    //inline void               Term::setType      (Type t){ type_ = t; }   
+
     inline bool               Term::isInternal   () const{ return (type_ == Internal) ;}
     inline bool               Term::isExternal   () const{ return (type_ == External) ;}
     inline const std::string& Term::getName      () const{ return name_        ;       }

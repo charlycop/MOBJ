@@ -30,9 +30,10 @@ public:
     inline       Term::Type          getType       () const;
     size_t                           getFreeNodeId () const;
 
-    void  add    ( Node* );
-    bool  remove ( Node* );
-    void  toXml ( std::ostream& stream);
+    void  add     ( Node* );
+    bool  remove  ( Node* );
+    void  toXml   ( std::ostream& stream);
+    static Net*  fromXml (Cell*, xmlTextReaderPtr);
 };
 
     inline const std::vector<Node*>& Net::getNodes () const{ return nodes_; }

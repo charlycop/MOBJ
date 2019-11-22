@@ -7,6 +7,7 @@
 #include "Instance.h"
 #include "Cell.h"
 #include "Indentation.h"
+#include "XmlUtil.h"
 
 namespace Netlist {
 
@@ -19,6 +20,10 @@ namespace Netlist {
      if (getTerm()->isExternal())
           stream << indent << "<node term=\"" << getTerm()->getName() <<"\" id=\""<< getId() << "\" x=\"" <<getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
      else stream << indent << "<node term=\"" << getTerm()->getName() << "\" instance=\"" << getTerm()->getInstance()->getName() <<"\" id=\""<< getId() << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
+  }
+
+  bool  Node::fromXml(Net* cell, xmlTextReaderPtr reader){
+    return false;
   }
 
   Node::Node ( Term* term, size_t id )

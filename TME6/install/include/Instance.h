@@ -2,6 +2,7 @@
 #define  NETLIST_INSTANCE_H
 
 #include <vector>
+#include "XmlUtil.h"
 
 namespace Netlist{
 
@@ -28,7 +29,8 @@ public:
     void         remove        ( Term* );
     void         setPosition   ( const Point& );
     void         setPosition   ( int x, int y );
-    void         toXml ( std::ostream& );
+    void         toXml         ( std::ostream& );
+    static       Instance*    fromXml       (Cell*, xmlTextReaderPtr);
 
 
 private:

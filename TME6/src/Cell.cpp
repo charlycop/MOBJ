@@ -1,7 +1,9 @@
 // -*- explicit-buffer-name: "Cell.cpp<M1-MOBJ/4-5>" -*-
 
 #include  <cstdlib>
-#include <iostream>
+#include  <iostream>
+#include  <string>
+#include  <fstream>
 #include  "Cell.h"
 #include  "Term.h"
 #include  "Net.h"
@@ -9,12 +11,13 @@
 #include  "Node.h"
 #include  "Indentation.h"
 
+
 using namespace std;
 
 
 namespace Netlist {
 
-  void  Cell::toXml ( std::ostream& stream){
+  void  Cell::toXml (  ostream& stream) const{
 
       //DEBUT CELL
       stream << "Construction du modele <" << name_ << ">.\n";
@@ -36,8 +39,147 @@ namespace Netlist {
       stream << --indent << "</cell>\n\n";
   }
 
- 
+  void  Cell::save () const
+  {
+      string  fileName   = getName() + ".xml";
+      fstream fileStream ( fileName.c_str(), ios_base::out|ios_base::trunc );
+      if (not fileStream.good()) {
+        cerr << "[ERROR] Cell::save() unable to open file <" << fileName << ">." << endl;
+        return;
+      }
 
+      cerr << "Saving <Cell " << getName() << "> in <" << fileName << ">" << endl;
+      toXml( fileStream );
+
+      fileStream.close();
+  }
+
+
+
+Cell* Cell::load ( const string& cellName ){
+      string           cellFile = "./cells/" + cellName + ".xml";
+      xmlTextReaderPtr reader;
+
+      reader = xmlNewTextReaderFilename( cellFile.c_str() );
+      if (reader == NULL) {
+        cerr << "[ERROR] Cell::load() unable to open file <" << cellFile << ">." << endl;
+        return NULL;
+      }
+
+      Cell* cell = Cell::fromXml( reader );
+      xmlFreeTextReader( reader );
+
+      return cell;
+}
+
+Cell* Cell::fromXml ( xmlTextReaderPtr reader ){
+      enum  State { Init           = 0
+                  , BeginCell
+                  , BeginTerms
+                  , EndTerms
+                  , BeginInstances
+                  , EndInstances
+                  , BeginNets
+                  , EndNets
+                  , EndCell
+                  };
+
+      const xmlChar* cellTag      = xmlTextReaderConstString( reader, (const xmlChar*)"cell" );
+      const xmlChar* netsTag      = xmlTextReaderConstString( reader, (const xmlChar*)"nets" );
+      const xmlChar* termsTag     = xmlTextReaderConstString( reader, (const xmlChar*)"terms" );
+      const xmlChar* instancesTag = xmlTextReaderConstString( reader, (const xmlChar*)"instances" );
+
+      Cell* cell   = NULL;
+      State state  = Init;
+
+      while ( true ) {
+        int status = xmlTextReaderRead(reader);
+        if (status != 1) {
+          if (status != 0) {
+            cerr << "[ERROR] Cell::fromXml(): Unexpected termination of the XML parser." << endl;
+          }
+          break;
+        }
+
+        switch ( xmlTextReaderNodeType(reader) ) {
+          case XML_READER_TYPE_COMMENT:
+          case XML_READER_TYPE_WHITESPACE:
+          case XML_READER_TYPE_SIGNIFICANT_WHITESPACE:
+            continue;
+        }
+
+        const xmlChar* nodeName = xmlTextReaderConstLocalName( reader );
+
+        switch ( state ) {
+          case Init:
+            if (cellTag == nodeName) {
+              state = BeginCell;
+              string cellName = xmlCharToString( xmlTextReaderGetAttribute( reader, (const xmlChar*)"name" ) );
+              if (not cellName.empty()) {
+                cell = new Cell ( cellName );
+                state = BeginTerms;
+                continue;
+              }
+            }
+            break;
+          case BeginTerms:
+            if ( (nodeName == termsTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT) ) {
+              state = EndTerms;
+              continue;
+            }
+            break;
+          case EndTerms:
+            if ( (nodeName == termsTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
+              state = BeginInstances;
+              continue;
+            } else {
+              if (Term::fromXml(cell,reader)) continue;
+            }
+            break;
+          case BeginInstances:
+            if ( (nodeName == instancesTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT) ) {
+              state = EndInstances;
+              continue;
+            }
+            break;
+          case EndInstances:
+            if ( (nodeName == instancesTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
+              state = BeginNets;
+              continue;
+            } else {
+              if (Instance::fromXml(cell,reader)) continue;
+            }
+            break;
+          case BeginNets:
+            if ( (nodeName == netsTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT) ) {
+              state = EndNets;
+              continue;
+            }
+            break;
+          case EndNets:
+            if ( (nodeName == netsTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
+              state = EndCell;
+              continue;
+            } else {
+              if (Net::fromXml(cell,reader)) continue;
+            }
+            break;
+          case EndCell:
+            if ( (nodeName == cellTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
+              continue;
+            }
+            break;
+          default:
+            break;
+        }
+
+        cerr << "[ERROR] Cell::fromXml(): Unknown or misplaced tag <" << nodeName
+             << "> (line:" << xmlTextReaderGetParserLineNumber(reader) << ")." << endl;
+        break;
+      }
+
+      return cell;
+}
 
   vector<Cell*>  Cell::cells_;
 

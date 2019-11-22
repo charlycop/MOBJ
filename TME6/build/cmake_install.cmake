@@ -57,6 +57,7 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/users/enseig/oudy/Bureau/MOBJ/TME6/src/Point.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME6/src/Node.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME6/src/Cell.h"
+    "/users/enseig/oudy/Bureau/MOBJ/TME6/src/XmlUtil.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 

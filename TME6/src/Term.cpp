@@ -4,6 +4,7 @@
 #include "Instance.h"
 #include "Cell.h"
 #include "Indentation.h"
+#include "XmlUtil.h"
 
 using namespace std;
 
@@ -11,6 +12,28 @@ namespace Netlist {
 
     void  Term::toXml ( std::ostream& stream){
         stream << indent <<"<term name=\"" << getName() << "\" direction=\"" << Term::toString(getDirection()) << "\"/>\n";
+    }
+
+    Term* Term::fromXml(Cell* cell, xmlTextReaderPtr reader){
+        
+        Term* newTerm = nullptr;
+
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "term"){ // Si j'ai bien un term
+           /* cout << "Direction  : "<< xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"direction")) << endl;
+            cout << "Name : " <<      xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name")) << endl;
+            cout << "x : " <<         xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x")) << endl;
+            cout << "y : " <<         xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y")) << endl;
+*/
+            string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
+            string    direction = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"direction"));
+            string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));
+            string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
+
+            newTerm = new Term(cell, name, toDirection(direction));
+            newTerm->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+        }
+
+        return newTerm;
     }
 
     Term::Term ( Cell* owner , const std::string& name, Direction direction): 

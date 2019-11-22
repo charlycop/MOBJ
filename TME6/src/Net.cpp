@@ -20,6 +20,29 @@ namespace Netlist{
         --indent;
     }
 
+    Net* Net::fromXml(Cell* cell, xmlTextReaderPtr reader){
+        Net* newNet  = nullptr;
+        Net* newNode = nullptr;
+
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){ // Si j'ai bien une instance
+
+            string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
+            string         type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"type"));
+            
+            newNet = new Net(cell, name, Term::toType(type));          
+        }
+
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "node"){
+            string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
+            string         type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
+            string         id   = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
+
+            Node ( cell->getTerm(), atoi(id.c_str()));
+        }
+
+        return newNet;
+    }
+
     Net::Net     ( Cell* owner, const std::string& name, Term::Type type):
     owner_(owner), name_(name), id_(owner->Cell::newNetId ()), type_(type){
 

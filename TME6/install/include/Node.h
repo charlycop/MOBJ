@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "Point.h"
+#include "XmlUtil.h"
 
 
 namespace Netlist {
@@ -30,6 +31,7 @@ namespace Netlist {
       inline  Term*   getTerm     () const;
       inline  void    setId       ( size_t );
               void    toXml       ( std::ostream& stream);
+       static bool    fromXml     (Net*, xmlTextReaderPtr);
     private:
                       Node        ( const Node& );
               Node&   operator=   ( const Node& );

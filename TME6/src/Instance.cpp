@@ -7,11 +7,35 @@
 #include "Instance.h"
 #include "Cell.h"
 #include "Indentation.h"
+#include "XmlUtil.h"
+
+using namespace std;
 
 namespace Netlist{
 
     void  Instance::toXml ( std::ostream& stream){
         stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << getMasterCell()->getName() << "\" x=" << getPosition().getX() <<" y=" << getPosition().getY() << "\"/>\n";
+    }
+
+    Instance* Instance::fromXml(Cell* cell, xmlTextReaderPtr reader){
+        
+        Instance* newInstance = nullptr;
+
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "instance"){ // Si j'ai bien une instance
+
+            string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
+            string    mastercell= xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"mastercell"));
+            string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));
+            string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
+            
+            Cell* masterCell = Cell::find(mastercell);
+            if(masterCell->getName() == mastercell){
+                newInstance = new Instance(cell, masterCell , name);
+                newInstance->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+            }
+        }
+
+        return newInstance;
     }
 
     Instance::Instance      ( Cell* owner, Cell* model, const std::string& name):
