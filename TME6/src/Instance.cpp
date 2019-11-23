@@ -18,10 +18,8 @@ namespace Netlist{
     }
 
     Instance* Instance::fromXml(Cell* cell, xmlTextReaderPtr reader){
-        
-        Instance* newInstance = nullptr;
 
-        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "instance"){ // Si j'ai bien une instance
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "instance"){
 
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string    mastercell= xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"mastercell"));
@@ -29,13 +27,15 @@ namespace Netlist{
             string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
             
             Cell* masterCell = Cell::find(mastercell);
-            if(masterCell->getName() == mastercell){
-                newInstance = new Instance(cell, masterCell , name);
+
+            if(masterCell->getName() == mastercell && not name.empty()){
+                Instance* newInstance = new Instance(cell, masterCell , name);
                 newInstance->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+                return newInstance;
             }
         }
 
-        return newInstance;
+        return nullptr;
     }
 
     Instance::Instance      ( Cell* owner, Cell* model, const std::string& name):

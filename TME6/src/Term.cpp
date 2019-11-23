@@ -15,22 +15,22 @@ namespace Netlist {
     }
 
     Term* Term::fromXml(Cell* cell, xmlTextReaderPtr reader){
-        
-        Term* newTerm = nullptr;
 
-        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "term"){ // Si j'ai bien un term
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "term"){
            
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string    direction = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"direction"));
             string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));
             string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
 
-            newTerm = new Term(cell, name, toDirection(direction));
-            newTerm->setPosition(atoi(x.c_str()), atoi(y.c_str()));
-            cout << "LIGNE(term) : " << xmlTextReaderGetParserLineNumber(reader) << " - " << name<< endl;
+            if(not name.empty() && not direction.empty()){
+                Term* newTerm = new Term(cell, name, toDirection(direction));
+                newTerm->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+                return newTerm;
+            }
         }
 
-        return newTerm;
+        return nullptr;
     }
 
     Term::Term ( Cell* owner , const std::string& name, Direction direction): 

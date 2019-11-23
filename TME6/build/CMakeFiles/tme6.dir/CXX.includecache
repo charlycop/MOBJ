@@ -20,18 +20,12 @@ string
 iostream
 -
 
-/users/enseig/oudy/Bureau/MOBJ/TME6/src/Instance.h
-vector
+/users/enseig/oudy/Bureau/MOBJ/TME6/src/Instance.cpp
+cstdlib
 -
-XmlUtil.h
-/users/enseig/oudy/Bureau/MOBJ/TME6/src/XmlUtil.h
-
-/users/enseig/oudy/Bureau/MOBJ/TME6/src/Net.cpp
 iostream
 -
-limits
--
-string
+vector
 -
 Node.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Node.h
@@ -45,8 +39,14 @@ Cell.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Cell.h
 Indentation.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Indentation.h
-ctime
+XmlUtil.h
+/users/enseig/oudy/Bureau/MOBJ/TME6/src/XmlUtil.h
+
+/users/enseig/oudy/Bureau/MOBJ/TME6/src/Instance.h
+vector
 -
+XmlUtil.h
+/users/enseig/oudy/Bureau/MOBJ/TME6/src/XmlUtil.h
 
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Net.h
 vector
