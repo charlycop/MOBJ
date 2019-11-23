@@ -27,6 +27,7 @@ namespace Netlist {
 
             newTerm = new Term(cell, name, toDirection(direction));
             newTerm->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+            cout << "LIGNE(term) : " << xmlTextReaderGetParserLineNumber(reader) << " - " << name<< endl;
         }
 
         return newTerm;

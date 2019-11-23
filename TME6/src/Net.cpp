@@ -7,6 +7,7 @@
 #include "Instance.h"
 #include "Cell.h"
 #include "Indentation.h"
+#include <ctime>
 
 namespace Netlist{
     using namespace std;
@@ -17,30 +18,40 @@ namespace Netlist{
         stream << indent++ << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\"/>\n";
         for(auto node : getNodes()) 
             node->toXml(stream);
-        --indent;
+        stream << --indent << "</net>\n" ;
     }
 
     Net* Net::fromXml(Cell* cell, xmlTextReaderPtr reader){
-        Net* newNet  = nullptr;
-        Node* newNode = nullptr;
 
-        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){ // Si j'ai bien une instance
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){
 
-            string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
-            string         type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"type"));
+            string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
+            string type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"type"));
             
-            newNet = new Net(cell, name, Term::toType(type));
-            newNet->getCell()->connect( name, newNet);    
-        }
+            if (cell->getNets().size() && cell->getNets().back()->getName() == name) 
+                return cell->getNets().back();
 
-        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "node"){
-            string         term = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
-            string         type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
-            string         id   = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
+            return new Net(cell, name, Term::toType(type));
+        }
+      
+        else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "node"){
+
+            string  term     = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
+            string  instance = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
+            string  id       = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
+            Net* lastNet     = cell->getNets().back();
             
-        }
+            if (not instance.empty()){
+                Instance* instancePtr = cell->getInstance(instance);
+                instancePtr->connect(term, lastNet);
+            }
+            else
+                cell->connect(term, lastNet);
 
-        return newNet;
+            return lastNet;
+        }
+  
+        return nullptr;
     }
 
     Net::Net     ( Cell* owner, const std::string& name, Term::Type type):
