@@ -31,12 +31,17 @@ namespace Netlist{
             if (cell->getNets().size() && cell->getNets().back()->getName() == name) 
                 return cell->getNets().back();
 
-            return new Net(cell, name, Term::toType(type));
+            if(not name.empty() && not type.empty())
+                return new Net(cell, name, Term::toType(type));
         }
       
         else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "node"){
+            Net* lastNet     = cell->getNets().back();
 
-            string  term     = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
+            if(Node::fromXml(lastNet, reader))
+                return lastNet;
+
+            /*string  term     = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
             string  instance = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
             string  id       = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
             Net* lastNet     = cell->getNets().back();
@@ -49,6 +54,7 @@ namespace Netlist{
                 cell->connect(term, lastNet);
 
             return lastNet;
+            */
         }
   
         return nullptr;

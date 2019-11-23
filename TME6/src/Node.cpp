@@ -23,12 +23,21 @@ namespace Netlist {
   }
 
   bool  Node::fromXml(Net* net, xmlTextReaderPtr reader){
-        string         term = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
-        string         type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
-        string         id   = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
-        cout << id <<"/"<< term <<"/" << type << endl;
-        return true;
-            //cell->getTerm(term)->getNode()->setId(atoi(id.c_str()));
+      string  term     = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
+      string  instance = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
+      string  id       = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
+
+      if(not term.empty() && not id.empty()){
+          if (not instance.empty()){
+              Instance* instancePtr = net->getCell()->getInstance(instance);
+              instancePtr->connect(term, net);
+          }
+          else
+            net->getCell()->connect(term, net);
+      }else
+        return false;
+
+      return true;
   }
 
   Node::Node ( Term* term, size_t id ): id_(id), term_(term), position_(){}
