@@ -15,7 +15,7 @@ namespace Netlist{
     const size_t  Net::noid = numeric_limits<size_t>::max();
 
     void  Net::toXml ( std::ostream& stream){
-        stream << indent++ << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\"/>\n";
+        stream << indent++ << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\">\n";
         for(auto node : getNodes()) 
             node->toXml(stream);
         stream << --indent << "</net>\n" ;
@@ -69,12 +69,48 @@ namespace Netlist{
     Net::~Net(){}
 
     void Net::add (Node* n){ 
-        size_t freeNode = getFreeNodeId();
+
+        //On met en commentaire la fonction qui ne marche plus
+        // avec la contrainte d'imposer le ID lors de la lecture du XML
+        /*size_t freeNode = getFreeNodeId();
 
         if(freeNode >= nodes_.size())
             nodes_.push_back(n);
         else
             nodes_[freeNode] = n;
+        */
+
+        // Fonction compatible avec le fromXML
+
+        if(not n) return;
+        size_t id = n->getId();
+        cout << "ID qu'on veut placer :" << id << endl;
+        cout << "taille du vecteur "<< nodes_.size() << endl;
+        // SI le ID est vide (pas forcé par le fromXML par exemple)
+        if(id==Node::noid){
+            id = getFreeNodeId();
+            n -> setId(id);
+        }
+
+        //Si il a été forcé par le fromXML
+        if(id < nodes_.size()){
+
+            if(nodes_[id] != nullptr){
+                cerr << "[ERROR]" << endl;
+                nodes_[id]->setId(Node::noid);
+                return;
+            }
+            nodes_[id] = n;
+        }else if(id == nodes_.size()){
+            nodes_.push_back(n);
+        }
+        else{
+            for(size_t i = nodes_.size(); i<id; ++i){
+                nodes_.push_back(nullptr);
+            }
+            nodes_.push_back(n);
+        }
+        cout << "taille apres ajout : " << nodes_.size()  << " avec node(id)=" << n->getId() << " et node@" << n  << " et la case contient" << nodes_[id]        << "n->getTerm()->getName()" <<  n->getTerm()->getName() << endl;
     }
 
     bool  Net::remove ( Node* n){

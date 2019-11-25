@@ -18,22 +18,39 @@ namespace Netlist {
 
   void  Node::toXml ( std::ostream& stream){
      if (getTerm()->isExternal())
-          stream << indent << "<node term=\"" << getTerm()->getName() <<"\" id=\""<< getId() << "\" x=\"" <<getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
-     else stream << indent << "<node term=\"" << getTerm()->getName() << "\" instance=\"" << getTerm()->getInstance()->getName() <<"\" id=\""<< getId() << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
+          stream << indent << "<node term=\"" << getTerm()->getName() <<"\" id=\""<< getId() <<"\"/>\n";
+     else stream << indent << "<node term=\"" << getTerm()->getName() << "\" instance=\"" << getTerm()->getInstance()->getName() <<"\" id=\""<< getId() << "\"/>\n";
   }
 
   bool  Node::fromXml(Net* net, xmlTextReaderPtr reader){
-      string  term     = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
+      string  termName = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
       string  instance = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"instance"));
       string  id       = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"id"));
+      cout << "======================" << endl;
+      cout << "on recupere l'id du xml :" << id << endl;
 
-      if(not term.empty() && not id.empty()){
+      if(not termName.empty()){
+          // On met à jour l'id du node
+        cout << "======================" << endl;
           if (not instance.empty()){
+
+              cout << "Instance::connect()" << endl;
+              
               Instance* instancePtr = net->getCell()->getInstance(instance);
-              instancePtr->connect(term, net);
+              
+              instancePtr->connect(termName, net);
+              instancePtr->getTerm(termName)->getNode()->setId(atoi(id.c_str()));
+
+
           }
-          else
-            net->getCell()->connect(term, net);
+          else{
+            
+            cout << "Cell::connect()" << endl;
+            
+            net->getCell()->connect(termName, net);
+            net->getCell()->getTerm(termName)->getNode()->setId(atoi(id.c_str()));
+            
+          }
       }else
         return false;
 

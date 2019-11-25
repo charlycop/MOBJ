@@ -11,7 +11,7 @@ using namespace std;
 namespace Netlist {
 
     void  Term::toXml ( std::ostream& stream){
-        stream << indent <<"<term name=\"" << getName() << "\" direction=\"" << Term::toString(getDirection()) << "\"/>\n";
+        stream << indent <<"<term name=\"" << getName() << "\" direction=\"" << Term::toString(getDirection()) << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "idnode :" << getNode()->getId() << "\"/>\n";
     }
 
     Term* Term::fromXml(Cell* cell, xmlTextReaderPtr reader){
@@ -59,18 +59,19 @@ namespace Netlist {
     }
 
     void Term::setNet (Net* newNet){  
-        net_ = newNet;   
         //On récupère l'objet node du term
-        Node* n = (getNode());
+        Node* n = getNode();
         //On ajoute le node au vecteur des nodes dans net
-        net_->add(n);
-
+        newNet->add(n);
+        cout << "on recupere lid :" << n->getId() << endl;
+      /*
         size_t emplacement=0;
         for(auto node : net_->getNodes()){
-            if(node == n)
-                n->setId(emplacement);
+            if(node == n){
+                //n->setId(emplacement);   
+            }
             ++emplacement;
-        }
+        }*/
     }
 
     void Term::setNet (const std::string& nameToFind){
