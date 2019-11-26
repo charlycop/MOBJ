@@ -7,14 +7,13 @@
 #include "Instance.h"
 #include "Cell.h"
 #include "Indentation.h"
-#include "XmlUtil.h"
 
 using namespace std;
 
 namespace Netlist{
 
     void  Instance::toXml ( std::ostream& stream){
-        stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << getMasterCell()->getName() << "\" x=" << getPosition().getX() <<" y=" << getPosition().getY() << "\"/>\n";
+        stream << indent << "<instance name=\"" << getName() << "\" mastercell=\"" << getMasterCell()->getName() << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
     }
 
     Instance* Instance::fromXml(Cell* cell, xmlTextReaderPtr reader){

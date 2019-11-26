@@ -20,7 +20,6 @@ namespace Netlist {
   void  Cell::toXml (  ostream& stream) const{
 
       //DEBUT CELL
-      stream << "Construction du modele <" << name_ << ">.\n";
       stream << "<?xml version=\"1.0\"?>\n";
       stream << indent++ << "<cell name=\"" << name_ << "\">\n";
       //TERMS
@@ -36,7 +35,7 @@ namespace Netlist {
       for(auto net : getNets()) net->toXml(stream);
       stream << --indent << "</nets>\n";
       //FIN CELL
-      stream << --indent << "</cell>\n\n";
+      stream << --indent << "</cell>\n";
   }
 
   void  Cell::save () const

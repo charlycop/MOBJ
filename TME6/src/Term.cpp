@@ -34,7 +34,7 @@ namespace Netlist {
     }
 
     Term::Term ( Cell* owner , const std::string& name, Direction direction): 
-    owner_(owner), name_(name),direction_(direction),type_(External),net_(NULL), node_(this, Net::noid) {
+    owner_(owner), name_(name),direction_(direction),type_(External),net_(NULL), node_(this) {
         static_cast<Cell*>(owner_) -> add(this);
     }
 
@@ -44,7 +44,7 @@ namespace Netlist {
     direction_(modelTerm->getDirection()),
     type_(Internal),
     net_(modelTerm->getNet()),
-    node_(this, Net::noid)
+    node_(this)
     {
         static_cast<Instance*>(owner_) -> add(this);
     }
@@ -59,19 +59,8 @@ namespace Netlist {
     }
 
     void Term::setNet (Net* newNet){  
-        //On récupère l'objet node du term
         Node* n = getNode();
-        //On ajoute le node au vecteur des nodes dans net
         newNet->add(n);
-        cout << "on recupere lid :" << n->getId() << endl;
-      /*
-        size_t emplacement=0;
-        for(auto node : net_->getNodes()){
-            if(node == n){
-                //n->setId(emplacement);   
-            }
-            ++emplacement;
-        }*/
     }
 
     void Term::setNet (const std::string& nameToFind){

@@ -2,7 +2,7 @@
 #define  NETLIST_INSTANCE_H
 
 #include <vector>
-#include "XmlUtil.h"
+
 
 namespace Netlist{
 
