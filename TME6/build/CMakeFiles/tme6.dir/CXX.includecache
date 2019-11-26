@@ -26,14 +26,12 @@ vector
 XmlUtil.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/XmlUtil.h
 
-/users/enseig/oudy/Bureau/MOBJ/TME6/src/Net.h
-vector
+/users/enseig/oudy/Bureau/MOBJ/TME6/src/Net.cpp
+iostream
 -
 limits
 -
-
-/users/enseig/oudy/Bureau/MOBJ/TME6/src/Node.cpp
-limits
+string
 -
 Node.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Node.h
@@ -47,8 +45,14 @@ Cell.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Cell.h
 Indentation.h
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Indentation.h
-XmlUtil.h
-/users/enseig/oudy/Bureau/MOBJ/TME6/src/XmlUtil.h
+ctime
+-
+
+/users/enseig/oudy/Bureau/MOBJ/TME6/src/Net.h
+vector
+-
+limits
+-
 
 /users/enseig/oudy/Bureau/MOBJ/TME6/src/Node.h
 iostream

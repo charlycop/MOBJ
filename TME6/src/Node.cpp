@@ -37,18 +37,17 @@ namespace Netlist {
               cout << "Instance::connect()" << endl;
               
               Instance* instancePtr = net->getCell()->getInstance(instance);
-              
-              instancePtr->connect(termName, net);
               instancePtr->getTerm(termName)->getNode()->setId(atoi(id.c_str()));
-
-
+              instancePtr->connect(termName, net);
+              
+              
           }
           else{
             
             cout << "Cell::connect()" << endl;
-            
-            net->getCell()->connect(termName, net);
             net->getCell()->getTerm(termName)->getNode()->setId(atoi(id.c_str()));
+            net->getCell()->connect(termName, net);
+            
             
           }
       }else
@@ -57,7 +56,7 @@ namespace Netlist {
       return true;
   }
 
-  Node::Node ( Term* term, size_t id ): id_(id), term_(term), position_(){}
+  Node::Node ( Term* term, size_t id ): id_(Node::noid), term_(term), position_(){}
 
 
   Node::~Node ()

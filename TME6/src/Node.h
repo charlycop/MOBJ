@@ -32,6 +32,7 @@ namespace Netlist {
       inline  void    setId       ( size_t );
               void    toXml       ( std::ostream& stream);
        static bool    fromXml     (Net*, xmlTextReaderPtr);
+
     private:
                       Node        ( const Node& );
               Node&   operator=   ( const Node& );

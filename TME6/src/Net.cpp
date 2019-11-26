@@ -16,8 +16,13 @@ namespace Netlist{
 
     void  Net::toXml ( std::ostream& stream){
         stream << indent++ << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\">\n";
-        for(auto node : getNodes()) 
-            node->toXml(stream);
+        cout << "taille du node de net : " << getNodes().size();
+        for(auto& node : getNodes()) {
+            if (node->getId() != Node::noid){
+                //cout << "node->getId() : "  << endl;
+                node->toXml(stream);
+            }
+        }
         stream << --indent << "</net>\n" ;
     }
 
@@ -67,12 +72,12 @@ namespace Netlist{
     }
 
     Net::~Net(){}
-
+/*
     void Net::add (Node* n){ 
 
         //On met en commentaire la fonction qui ne marche plus
         // avec la contrainte d'imposer le ID lors de la lecture du XML
-        /*size_t freeNode = getFreeNodeId();
+        size_t freeNode = getFreeNodeId();
 
         if(freeNode >= nodes_.size())
             nodes_.push_back(n);
@@ -81,7 +86,7 @@ namespace Netlist{
         */
 
         // Fonction compatible avec le fromXML
-
+        /* MA VERSION
         if(not n) return;
         size_t id = n->getId();
         cout << "ID qu'on veut placer :" << id << endl;
@@ -101,16 +106,42 @@ namespace Netlist{
                 return;
             }
             nodes_[id] = n;
-        }else if(id == nodes_.size()){
-            nodes_.push_back(n);
-        }
-        else{
+
+        }else{
             for(size_t i = nodes_.size(); i<id; ++i){
                 nodes_.push_back(nullptr);
             }
             nodes_.push_back(n);
         }
         cout << "taille apres ajout : " << nodes_.size()  << " avec node(id)=" << n->getId() << " et node@" << n  << " et la case contient" << nodes_[id]        << "n->getTerm()->getName()" <<  n->getTerm()->getName() << endl;
+         FIN DE MA VERSION
+
+    }*/
+
+    void Net::add ( Node* other ){
+
+        if(not other)return;
+        size_t id = other->getId();
+
+        if(id==Node::noid){
+            id=getFreeNodeId();
+            other->setId(id);
+        }
+    
+        if(id<nodes_.size()){
+            if(nodes_[id]!=NULL){
+                cerr<<"[ERROR]"<<endl;
+                nodes_[id]->setId(Node::noid);
+            }
+            nodes_[id]=other;
+        }
+
+        else{
+            for(size_t i=nodes_.size();i<id;++i){
+                nodes_.push_back(NULL);
+            }
+            nodes_.push_back(other);
+        }
     }
 
     bool  Net::remove ( Node* n){

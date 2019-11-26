@@ -11,7 +11,7 @@ using namespace std;
 namespace Netlist {
 
     void  Term::toXml ( std::ostream& stream){
-        stream << indent <<"<term name=\"" << getName() << "\" direction=\"" << Term::toString(getDirection()) << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "idnode :" << getNode()->getId() << "\"/>\n";
+        stream << indent <<"<term name=\"" << getName() << "\" direction=\"" << Term::toString(getDirection()) << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
     }
 
     Term* Term::fromXml(Cell* cell, xmlTextReaderPtr reader){
