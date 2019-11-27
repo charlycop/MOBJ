@@ -30,7 +30,7 @@ namespace Netlist {
       inline const std::vector<Shape*>  getShapes       () const;
       inline void                       add             ( Shape* );
              void                       remove          ( Shape* );
-             void                       toXml           ( std::ostream& ) const;
+             void                       toXml           (  std::ostream& ) const;
              static Symbol*             fromXml         ( Cell*, xmlTextReaderPtr );
     private:                                            
                                         Symbol          ( const Symbol& );

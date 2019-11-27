@@ -30,6 +30,14 @@ Shape*  LineShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){
     return s;
 }
 
+void   LineShape::toXml        ( std::ostream& stream ){
+    stream << "<line x1=\"" << getX1()
+           << "\" y1=\"" << getY1()
+           << "x2=\"" << getX2()
+           << "\" y2=\""<< getY2()
+           << "\"/>\n";
+}
+
 Shape*  EllipseShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){
     Shape* s=nullptr;
     return s;
@@ -38,6 +46,14 @@ Shape*  EllipseShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){
 Shape*  BoxShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){
     Shape* s=nullptr;
     return s;
+}
+
+void    BoxShape::toXml ( std::ostream& stream ){
+    stream << "<box x1=\"" << getBox().getX1()
+           << "\" y1=\"" << getBox().getY1() 
+           << "x2=\"" << getBox().getX2() 
+           << "\" y2=\""<< getBox().getY2() 
+           << "\"/>\n";
 }
 
 Shape*  ArcShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){

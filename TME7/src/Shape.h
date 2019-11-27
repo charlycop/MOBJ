@@ -4,6 +4,7 @@
 #include <vector>
 #include <limits>
 #include "Symbol.h"
+#include "Box.h"
 
 namespace Netlist{
 class Symbol;
@@ -29,18 +30,25 @@ class BoxShape : public Shape{
     public:
                     BoxShape    (Symbol*, Box);
                    ~BoxShape    ();
-    static Shape*  fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
+            void    toXml        ( std::ostream& stream );
+
+    static Shape*   fromXml     ( Symbol* owner, xmlTextReaderPtr reader);
+
+    inline Box      getBox      ();
 
     private:
-        Box     box_;
+        Box    box_;
 }; // Fin class Boxshape
 
+    //Fonction BoxShape
+    inline Box     BoxShape::getBox      () { return box_; };
 
 class LineShape : public Shape{
     public:
                     LineShape     ( Symbol*, long x1, long y1, long x2, long y2 );
                    ~LineShape     ();
-     static Shape*  fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
+            void    toXml         ( std::ostream& stream );
+     static Shape*  fromXml       ( Symbol* owner, xmlTextReaderPtr reader);
 
     inline  long    getX1         ();
     inline  long    getX2         ();
@@ -59,16 +67,30 @@ class LineShape : public Shape{
     inline long LineShape::getY2       () { return y2_; }
 
 class TermShape : public Shape{
-    enum NameAlign { TopLeft=1, TopRight, BottomLeft, BottomRight };
+    
 
     public:
-                    TermShape     ( Symbol* s, std::string name, long x1, long y1);
-                   ~TermShape     ();
-    static Shape*  fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
-    
-    inline  long    getX1        ();
-    inline  long    getY1        ();
-    inline  Term*   getTerm      ();
+        enum NameAlign { TopLeft=1, TopRight=2, BottomLeft=3, BottomRight=4 };
+
+                      TermShape     ( Symbol* s, std::string name, long x1, long y1);
+                     ~TermShape     ();
+    static  Shape*    fromXml       ( Symbol* owner, xmlTextReaderPtr reader);
+            void      toXml         ( std::ostream& stream );
+
+    static  std::string  toString    ( NameAlign name ){
+           switch(name){
+              case TopLeft      : return "TopLeft";
+              case TopRight     : return "TopRight";
+              case BottomLeft   : return "BottomLeft";
+              case BottomRight  : return "BottomRight";
+              default           : return "Unknown";
+            }
+    }
+
+    inline  long      getX1        ();
+    inline  long      getY1        ();
+    inline  Term*     getTerm      ();
+    inline  NameAlign getAlign     ();
 
     private:
         Term* term_;
@@ -78,15 +100,16 @@ class TermShape : public Shape{
 }; // Fin class Termshape
 
     // Pour la classe TermShape
-    inline long  TermShape::getX1       () { return x1_; }
-    inline long  TermShape::getY1       () { return y1_; }
-    inline Term* TermShape::getTerm     () {return term_;}
+    inline long      TermShape::getX1       () { return x1_;   }
+    inline long      TermShape::getY1       () { return y1_;   }
+    inline Term*     TermShape::getTerm     () { return term_; }
+    inline TermShape::NameAlign TermShape::getAlign    () { return align_;}
     
 class EllipseShape : public Shape{
     public:
                     EllipseShape     ( Symbol* s, std::string name, long x, long y);
                    ~EllipseShape     ();
-    static Shape*  fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
+    static Shape*   fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
 
 
     private:

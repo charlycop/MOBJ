@@ -89,6 +89,8 @@ limits
 -
 Symbol.h
 /users/enseig/oudy/Bureau/MOBJ/TME7/src/Symbol.h
+Box.h
+/users/enseig/oudy/Bureau/MOBJ/TME7/src/Box.h
 
 /users/enseig/oudy/Bureau/MOBJ/TME7/src/Symbol.h
 libxml/xmlreader.h

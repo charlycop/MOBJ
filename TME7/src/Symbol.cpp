@@ -8,6 +8,7 @@
 #include  "Net.h"
 #include  "Instance.h"
 #include "Shape.h"
+#include "Box.h"
 
 
 
@@ -21,10 +22,33 @@ namespace Netlist {
   Symbol::~Symbol(){}
 
   
-  void     Symbol::toXml           ( std::ostream& stream) const{}
+  void     Symbol::toXml           ( std::ostream& stream) const{
+      stream << indent++ << "<symbol>\n";
+      
+      for(auto& shape : shapes_){
+          BoxShape* boxshape = dynamic_cast<BoxShape*>(shape);
+          if (boxshape)
+               boxshape->toXml(stream);
+      }
+
+      for(auto& shape : shapes_){
+          LineShape* lineshape = dynamic_cast<LineShape*>(shape);
+          if (lineshape)
+               lineshape->toXml(stream);
+      }
+
+      for(auto& shape : shapes_){
+          TermShape* termshape = dynamic_cast<TermShape*>(shape);
+          if (termshape)
+               stream << "<term name=\""<< termshape->getTerm()->getName() <<"\" x1=\"" << termshape->getX1() << "\" y1=\"" << termshape->getY1() << "\" align=\"" << TermShape::toString(termshape->getAlign()) <<"\"/>\n";
+      }
+
+
+      stream << --indent << "</symbol>\n" ;
+  }
+
   Symbol*  Symbol::fromXml         ( Cell* c, xmlTextReaderPtr reader){
-        Symbol * s;
-        return s;
+        return nullptr;
   }
   Box Symbol::getBoundingBox () const {
     Box bb;
