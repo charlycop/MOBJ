@@ -1,4 +1,4 @@
-/users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/../work/tme6
+/users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/../work/tme7
 /users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Indentation.h
 /users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Term.h
 /users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Net.h
@@ -7,3 +7,7 @@
 /users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Node.h
 /users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Cell.h
 /users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/XmlUtil.h
+/users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Box.h
+/users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Line.h
+/users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Symbol.h
+/users/enseig/oudy/Bureau/MOBJ/TME7/build/../install/include/Shape.h
