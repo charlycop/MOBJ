@@ -30,6 +30,7 @@ class BoxShape : public Shape{
     public:
                     BoxShape    (Symbol*, Box);
                    ~BoxShape    ();
+            Box     getBoundingBox  () const;
             void    toXml        ( std::ostream& stream );
 
     static Shape*   fromXml     ( Symbol* owner, xmlTextReaderPtr reader);
@@ -47,6 +48,7 @@ class LineShape : public Shape{
     public:
                     LineShape     ( Symbol*, long x1, long y1, long x2, long y2 );
                    ~LineShape     ();
+            Box     getBoundingBox() const;
             void    toXml         ( std::ostream& stream );
      static Shape*  fromXml       ( Symbol* owner, xmlTextReaderPtr reader);
 
@@ -72,8 +74,9 @@ class TermShape : public Shape{
     public:
         enum NameAlign { TopLeft=1, TopRight=2, BottomLeft=3, BottomRight=4 };
 
-                      TermShape     ( Symbol* s, std::string name, long x1, long y1);
+                      TermShape     ( Symbol* s, std::string name, long x1, long y1, NameAlign align);
                      ~TermShape     ();
+            Box       getBoundingBox() const;
     static  Shape*    fromXml       ( Symbol* owner, xmlTextReaderPtr reader);
             void      toXml         ( std::ostream& stream );
 
@@ -86,6 +89,13 @@ class TermShape : public Shape{
               default           : return "Unknown";
             }
     }
+
+    static NameAlign    toNameAlign ( std::string align){
+            if      (align == "TopLeft")       return TopLeft;
+            else if (align == "TopRight")      return TopRight;
+            else if (align == "BottomLeft")    return BottomLeft;
+            else if (align == "BottomRight")   return BottomRight;
+        }
 
     inline  long      getX1        ();
     inline  long      getY1        ();

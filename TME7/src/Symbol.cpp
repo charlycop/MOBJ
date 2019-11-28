@@ -40,9 +40,8 @@ namespace Netlist {
       for(auto& shape : shapes_){
           TermShape* termshape = dynamic_cast<TermShape*>(shape);
           if (termshape)
-               stream << "<term name=\""<< termshape->getTerm()->getName() <<"\" x1=\"" << termshape->getX1() << "\" y1=\"" << termshape->getY1() << "\" align=\"" << TermShape::toString(termshape->getAlign()) <<"\"/>\n";
+                termshape->toXml(stream);
       }
-
 
       stream << --indent << "</symbol>\n" ;
   }
@@ -50,6 +49,7 @@ namespace Netlist {
   Symbol*  Symbol::fromXml         ( Cell* c, xmlTextReaderPtr reader){
         return nullptr;
   }
+  
   Box Symbol::getBoundingBox () const {
     Box bb;
 
