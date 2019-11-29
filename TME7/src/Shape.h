@@ -13,11 +13,11 @@ class Symbol;
 class Shape{
 
     public:
-                    Shape                      (Symbol*);
-                    ~Shape                      ();
-    inline  Symbol* getSymbol       () const;
-    virtual Box     getBoundingBox  () const = 0 ;
-    static Shape*   fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
+                    Shape                      ( Symbol* );
+                   ~Shape                      ();
+    inline  Symbol* getSymbol                  () const;
+    virtual Box     getBoundingBox             () const = 0 ;
+    static  Shape*  fromXml                    ( Symbol*, xmlTextReaderPtr );
 
     private:
         Symbol* symbol_;
@@ -30,14 +30,12 @@ class Shape{
 
 class BoxShape : public Shape{
     public:
-                    BoxShape    (Symbol*, Box);
-                   ~BoxShape    ();
+                    BoxShape        ( Symbol*, Box );
+                   ~BoxShape        ();
             Box     getBoundingBox  () const;
-            void    toXml        ( std::ostream& stream );
-
-    static Shape*   fromXml     ( Symbol* owner, xmlTextReaderPtr reader);
-
-    inline Box      getBox      ();
+            void    toXml           ( std::ostream& );
+    static  Shape*  fromXml         ( Symbol*, xmlTextReaderPtr );
+    inline  Box     getBox          ();
 
     private:
         Box    box_;
@@ -45,6 +43,7 @@ class BoxShape : public Shape{
 
     //Fonction BoxShape
     inline Box     BoxShape::getBox      () { return box_; };
+
 
 class LineShape : public Shape{
     public:
@@ -70,36 +69,20 @@ class LineShape : public Shape{
     inline long LineShape::getX2       () { return x2_; }
     inline long LineShape::getY2       () { return y2_; }
 
+
 class TermShape : public Shape{
     
-
     public:
         enum NameAlign { top_left=1, top_right=2, bottom_left=3, bottom_right=4 };
 
-                      TermShape     ( Symbol* s, std::string name, long x1, long y1, NameAlign align);
-                     ~TermShape     ();
-            Box       getBoundingBox() const;
-    static  Shape*    fromXml       ( Symbol* owner, xmlTextReaderPtr reader);
-            void      toXml         ( std::ostream& stream );
+                       TermShape     ( Symbol* s, std::string, long x1, long y1, NameAlign align);
+                      ~TermShape     ();
+           Box         getBoundingBox() const;
+    static Shape*      fromXml       ( Symbol*, xmlTextReaderPtr );
+           void        toXml         ( std::ostream& );
+    static std::string toString      ( NameAlign );
+    static NameAlign   toNameAlign   ( std::string );
 
-    static  std::string  toString    ( NameAlign name ){
-       switch(name){
-          case top_left      : return "top_left";
-          case top_right     : return "top_right";
-          case bottom_left   : return "bottom_left";
-          case bottom_right  : return "bottom_right";
-          default           : return "Unknown";
-        }
-    }
-
-    static NameAlign    toNameAlign ( std::string align){
-
-        if      (align == "top_left")       return top_left;
-        else if (align == "top_right")      return top_right;
-        else if (align == "bottom_left")    return bottom_left;
-        
-        return bottom_right;
-    }
 
     inline  long      getX1        ();
     inline  long      getY1        ();
@@ -114,18 +97,19 @@ class TermShape : public Shape{
 }; // Fin class Termshape
 
     // Pour la classe TermShape
-    inline long      TermShape::getX1       () { return x1_;   }
-    inline long      TermShape::getY1       () { return y1_;   }
-    inline Term*     TermShape::getTerm     () { return term_; }
+    inline long                 TermShape::getX1       () { return x1_;   }
+    inline long                 TermShape::getY1       () { return y1_;   }
+    inline Term*                TermShape::getTerm     () { return term_; }
     inline TermShape::NameAlign TermShape::getAlign    () { return align_;}
+
     
 class EllipseShape : public Shape{
     public:
                     EllipseShape     ( Symbol* s, long x1, long y1, long x2, long y2);
                    ~EllipseShape     ();
            Box      getBoundingBox   () const;
-           void     toXml            ( std::ostream& stream );
-    static Shape*   fromXml          ( Symbol* owner, xmlTextReaderPtr reader);
+           void     toXml            ( std::ostream& );
+    static Shape*   fromXml          ( Symbol* , xmlTextReaderPtr );
     inline Box      getBox           ();
 
 

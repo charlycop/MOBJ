@@ -17,7 +17,7 @@ namespace Netlist{
     }
 
     Instance* Instance::fromXml(Cell* cell, xmlTextReaderPtr reader){
-        cout << "je rentre dans Instance::fromXml" << endl;
+
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "instance"){
 
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));

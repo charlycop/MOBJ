@@ -16,13 +16,17 @@ namespace Netlist{
     const size_t  Net::noid = numeric_limits<size_t>::max();
 
     void  Net::toXml ( std::ostream& stream){
+        
+        //Le Net
         stream << indent++ << "<net name=\"" << getName() << "\" type=\"" << Term::toString(getType()) << "\">\n";
-      
+        
+        // Les nodes
         for(auto& node : getNodes()) {
             if (node != nullptr)
                 node->toXml(stream);
         }
 
+        // Les Lines
         for(auto& line : getLines()) {
             if (line != nullptr)
                 line->toXml(stream);
@@ -32,7 +36,7 @@ namespace Netlist{
     }
 
     Net* Net::fromXml(Cell* cell, xmlTextReaderPtr reader){
-        cout << "je rentre dans Net::fromXml" << endl;
+
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){
 
             string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
@@ -45,14 +49,14 @@ namespace Netlist{
                 return new Net(cell, name, Term::toType(type));
         }
       
-        else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "node"){
+        else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "node"){ //Les Nodes
             Net* lastNet     = cell->getNets().back();
 
             if(Node::fromXml(lastNet, reader))
                 return lastNet;
         }
 
-        else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "line"){
+        else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "line"){ //Les Lines
             Net* lastNet     = cell->getNets().back();
 
             if(Line::fromXml(lastNet, reader))

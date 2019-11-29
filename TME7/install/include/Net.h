@@ -24,24 +24,24 @@ class Net{
 public:
     static const size_t  noid;
 
-    Net     ( Cell*, const std::string&, Term::Type );
-    ~Net     ();
+                                     Net           ( Cell*, const std::string&, Term::Type );
+                                    ~Net           ();
 
     inline       Cell*               getCell       () const;
     inline const std::string&        getName       () const;
     inline const std::vector<Node*>& getNodes      () const;
-    inline       Node*               getNode       (size_t) const;
+    inline       Node*               getNode       ( size_t ) const;
     inline       unsigned int        getId         () const;
     inline       Term::Type          getType       () const;
     inline const std::vector<Line*>& getLines      () const;
-    inline       void                add           ( Line* line );
+    inline       void                add           ( Line* );
 
-    size_t                           getFreeNodeId () const;
-    void  add     ( Node* );
-    bool  remove  ( Line* line );
-    bool  remove  ( Node* );
-    void  toXml   ( std::ostream& stream);
-    static Net*  fromXml (Cell*, xmlTextReaderPtr);
+                 size_t              getFreeNodeId () const;
+                 void                add           ( Node* );
+                 bool                remove        ( Line* );
+                 bool                remove        ( Node* );
+                 void                toXml         ( std::ostream& );
+    static       Net*                fromXml       ( Cell*, xmlTextReaderPtr );
 };
 
     inline const std::vector<Node*>& Net::getNodes ()          const{ return nodes_;    }

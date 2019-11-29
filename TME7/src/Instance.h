@@ -15,7 +15,7 @@ class Instance{
 
 public:
     Instance      ( Cell* owner, Cell* model, const std::string& );
-     ~Instance      ();
+    ~Instance     ();
 
     inline const std::string&        getName       () const;
     inline Cell*                     getMasterCell () const;
@@ -24,13 +24,13 @@ public:
     inline Point                     getPosition   () const;
            Term*                     getTerm       ( const std::string& ) const;
     
-    bool         connect       ( const std::string& name, Net* );
-    inline void  add           ( Term* );
-    void         remove        ( Term* );
-    void         setPosition   ( const Point& );
-    void         setPosition   ( int x, int y );
-    void         toXml         ( std::ostream& );
-    static       Instance*    fromXml       (Cell*, xmlTextReaderPtr);
+                        bool         connect       ( const std::string& name, Net* );
+    inline              void         add           ( Term* );
+                        void         remove        ( Term* );
+                        void         setPosition   ( const Point& );
+                        void         setPosition   ( int x, int y );
+                        void         toXml         ( std::ostream& );
+    static         Instance*         fromXml       (Cell*, xmlTextReaderPtr);
 
 
 private:

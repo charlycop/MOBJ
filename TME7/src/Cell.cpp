@@ -329,14 +329,12 @@ namespace Netlist {
             if (Net::fromXml(cell,reader)) continue;
           }
           break;
-
           case BeginSymbol:  // TME7
           if ( (nodeName == symbolTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT) ) {
-              state = EndSymbol;
-              continue;
+            state = EndSymbol;
+            continue;
           }
           break;
-
         case EndSymbol:
           if ( (nodeName == symbolTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
             state = EndCell;  // TME7
@@ -344,28 +342,7 @@ namespace Netlist {
           } else {
             if (Symbol::fromXml(cell,reader)) continue;
           }
-          
           break;
-
-        /*  
-        case BeginSymbol:  // TME7
-          if ( (nodeName == symbolTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_ELEMENT) ) {
-            if (Symbol::fromXml(cell,reader)) {
-              state = EndCell;
-              continue;
-            }
-          }
-          break;
-
-        case Endsymbol:
-          if ( (nodeName == netsTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
-            state = BeginSymbol;  // TME7
-            continue;
-          } else {
-            if (Net::fromXml(cell,reader)) continue;
-          }
-          break;
-*/
         case EndCell:
           if ( (nodeName == cellTag) and (xmlTextReaderNodeType(reader) == XML_READER_TYPE_END_ELEMENT) ) {
             continue;
