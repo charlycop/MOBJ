@@ -6,6 +6,7 @@
 #include "Instance.h"
 #include "Cell.h"
 #include "Indentation.h"
+#include "Line.h"
 
 using namespace std;
 
@@ -22,11 +23,16 @@ namespace Netlist{
                 node->toXml(stream);
         }
 
+        for(auto& line : getLines()) {
+            if (line != nullptr)
+                line->toXml(stream);
+        }
+
         stream << --indent << "</net>\n" ;
     }
 
     Net* Net::fromXml(Cell* cell, xmlTextReaderPtr reader){
-
+        cout << "je rentre dans Net::fromXml" << endl;
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){
 
             string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
@@ -43,6 +49,13 @@ namespace Netlist{
             Net* lastNet     = cell->getNets().back();
 
             if(Node::fromXml(lastNet, reader))
+                return lastNet;
+        }
+
+        else if (xmlCharToString(xmlTextReaderLocalName(reader)) == "line"){
+            Net* lastNet     = cell->getNets().back();
+
+            if(Line::fromXml(lastNet, reader))
                 return lastNet;
         }
   

@@ -23,8 +23,8 @@ namespace Netlist {
 
   
   void     Symbol::toXml           ( std::ostream& stream) const{
-      stream << indent++ << "<symbol>\n";
-      
+      stream << indent << "<symbol>\n";
+
       for(auto& shape : shapes_){
           BoxShape* boxshape = dynamic_cast<BoxShape*>(shape);
           if (boxshape)
@@ -43,11 +43,33 @@ namespace Netlist {
                 termshape->toXml(stream);
       }
 
-      stream << --indent << "</symbol>\n" ;
+      for(auto& shape : shapes_){
+          ArcShape* arcshape = dynamic_cast<ArcShape*>(shape);
+          if (arcshape)
+               arcshape->toXml(stream);
+      }
+
+      for(auto& shape : shapes_){
+          EllipseShape* ellipseshape = dynamic_cast<EllipseShape*>(shape);
+          if (ellipseshape)
+               ellipseshape->toXml(stream);
+      }
+
+      stream << indent << "</symbol>\n" ;
   }
 
   Symbol*  Symbol::fromXml         ( Cell* c, xmlTextReaderPtr reader){
-        return nullptr;
+            cout << "Symbol::fromXml " << endl;
+           // cout << xmlCharToString(xmlTextReaderLocalName(reader)) << " - "  << endl;
+           // cout << c->getName() << endl;
+            //cout << c->getSymbol()->getCell()->getName() << endl;
+            cout << xmlCharToString(xmlTextReaderLocalName(reader)) << endl;
+            cout << xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name")) << endl;
+            Shape* retour;
+            if (xmlCharToString(xmlTextReaderLocalName(reader)) != "symbol")
+                retour = Shape::fromXml(c->getSymbol(), reader);
+
+            return retour->getSymbol();
   }
   
   Box Symbol::getBoundingBox () const {

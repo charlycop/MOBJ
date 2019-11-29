@@ -6,7 +6,9 @@
 #include "Symbol.h"
 #include "Box.h"
 
+
 namespace Netlist{
+
 class Symbol;
 class Shape{
 
@@ -72,7 +74,7 @@ class TermShape : public Shape{
     
 
     public:
-        enum NameAlign { TopLeft=1, TopRight=2, BottomLeft=3, BottomRight=4 };
+        enum NameAlign { top_left=1, top_right=2, bottom_left=3, bottom_right=4 };
 
                       TermShape     ( Symbol* s, std::string name, long x1, long y1, NameAlign align);
                      ~TermShape     ();
@@ -81,21 +83,23 @@ class TermShape : public Shape{
             void      toXml         ( std::ostream& stream );
 
     static  std::string  toString    ( NameAlign name ){
-           switch(name){
-              case TopLeft      : return "TopLeft";
-              case TopRight     : return "TopRight";
-              case BottomLeft   : return "BottomLeft";
-              case BottomRight  : return "BottomRight";
-              default           : return "Unknown";
-            }
+       switch(name){
+          case top_left      : return "top_left";
+          case top_right     : return "top_right";
+          case bottom_left   : return "bottom_left";
+          case bottom_right  : return "bottom_right";
+          default           : return "Unknown";
+        }
     }
 
     static NameAlign    toNameAlign ( std::string align){
-            if      (align == "TopLeft")       return TopLeft;
-            else if (align == "TopRight")      return TopRight;
-            else if (align == "BottomLeft")    return BottomLeft;
-            else if (align == "BottomRight")   return BottomRight;
-        }
+
+        if      (align == "top_left")       return top_left;
+        else if (align == "top_right")      return top_right;
+        else if (align == "bottom_left")    return bottom_left;
+        
+        return bottom_right;
+    }
 
     inline  long      getX1        ();
     inline  long      getY1        ();
@@ -117,27 +121,42 @@ class TermShape : public Shape{
     
 class EllipseShape : public Shape{
     public:
-                    EllipseShape     ( Symbol* s, std::string name, long x, long y);
+                    EllipseShape     ( Symbol* s, long x1, long y1, long x2, long y2);
                    ~EllipseShape     ();
-    static Shape*   fromXml         ( Symbol* owner, xmlTextReaderPtr reader);
+           Box      getBoundingBox   () const;
+           void     toXml            ( std::ostream& stream );
+    static Shape*   fromXml          ( Symbol* owner, xmlTextReaderPtr reader);
+    inline Box      getBox           ();
 
 
     private:
        Box     box_;
 }; // Fin EllipseShape
 
+    //Fonction EllipseShape
+    inline Box  EllipseShape::getBox      () { return box_;   };
+
+
 class ArcShape : public Shape{
     public:
-                    ArcShape     ( Symbol* s, long start_, long span_);
-                   ~ArcShape     ();
-    static Shape*  fromXml      ( Symbol* owner, xmlTextReaderPtr reader);
-
+                    ArcShape      ( Symbol* s, long start_, long span_, long x1, long y1, long x2, long y2);
+                   ~ArcShape      ();
+           Box      getBoundingBox() const;
+           void     toXml         ( std::ostream& stream );
+    static Shape*   fromXml       ( Symbol* owner, xmlTextReaderPtr reader);
+    inline long     getStart      ();
+    inline long     getSpan       (); 
+    inline Box      getBox        ();
 
     private:
        Box     box_;
        long    start_, span_;
 }; // Fin ArcShape
 
+    //Fonction ArcShape
+    inline long ArcShape::getStart    () { return start_; };
+    inline long ArcShape::getSpan     () { return span_;  };
+    inline Box  ArcShape::getBox      () { return box_;   };
 
 }  // Netlist namespace.
 

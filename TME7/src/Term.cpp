@@ -15,7 +15,7 @@ namespace Netlist {
     }
 
     Term* Term::fromXml(Cell* cell, xmlTextReaderPtr reader){
-
+        cout << "je rentre dans Term::fromXml" << endl;
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "term"){
            
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));

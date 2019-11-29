@@ -38,6 +38,21 @@ namespace Netlist{
         term_      = cell->getTerm(name);
     }
 
+    ArcShape::ArcShape( Symbol* s, long start, long span, long x1, long y1, long x2, long y2):
+    Shape(s), start_(start), span_(span)
+    {
+        Box box = Box(x1,y1,x2,y2);
+        box_= box;
+    }
+
+    EllipseShape::EllipseShape ( Symbol* s, long x1, long y1, long x2, long y2):
+    Shape(s)
+    {
+        Box box = Box(x1,y1,x2,y2);
+        box_= box;
+    }
+
+
     /*
     *
     * GETBOUNDING BOX
@@ -59,6 +74,17 @@ namespace Netlist{
         return t;
     }
 
+    Box     ArcShape::getBoundingBox() const{
+        Box t;
+        return t;
+    }
+
+    Box     EllipseShape::getBoundingBox() const{
+        Box t;
+        return t;
+    }
+
+
     /*
     *
     * FROM XML
@@ -67,9 +93,6 @@ namespace Netlist{
 
     Shape*  LineShape::fromXml        ( Symbol* owner, xmlTextReaderPtr reader){
         
-        string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"line"));
-
-        if (name == "line"){
             int x1 = -1;
             int x2 = -1;
             int y1 = -1;
@@ -77,28 +100,45 @@ namespace Netlist{
             xmlGetIntAttribute( reader, "x1", x1 );
             xmlGetIntAttribute( reader, "x2", x2 );  
             xmlGetIntAttribute( reader, "y1", y1 );
-            xmlGetIntAttribute( reader, "y2", y2 );            
+            xmlGetIntAttribute( reader, "y2", y2 );   
+            cout << x1 << x2 << y1 << y2 << endl;         
 
-            if(y1 < 0 || y2 < 0 || x1 < 0 || x2 < 0){
+            /*if(y1 == -1 || y2 ==-1 || x1 ==-1 || x2 ==-1 ){
                 cerr << "[ERROR] Coordinates not valid for on line of the symbol of the Cell : " << owner->getCell()->getName() << endl;
                 return nullptr;
-            }
+            }*/
              
             return new LineShape(owner, x1, y1, x2, y2);
-        }
+        
         cerr << "[ERROR] Coordinates not valid for on line of the symbol" << endl;
         return nullptr;
     }
 
     Shape*  EllipseShape::fromXml     ( Symbol* owner, xmlTextReaderPtr reader){
-        Shape* s=nullptr;
-        return s;
+            int x1, x2, y1, y2;
+            xmlGetIntAttribute( reader, "x1"   , x1 );
+            xmlGetIntAttribute( reader, "y1"   , y1 ); 
+            xmlGetIntAttribute( reader, "x2"   , x2 );
+            xmlGetIntAttribute( reader, "y2"   , y2 );
+            cout << "ellipse" << x1 << y1 << x2 << y2 << endl;
+            return new EllipseShape(owner, x1, y1, x2, y2);
+
+    }
+
+    Shape*  ArcShape::fromXml ( Symbol* owner, xmlTextReaderPtr reader){
+            int x1, x2, y1, y2, span, start;
+            xmlGetIntAttribute( reader, "x1"   , x1 );
+            xmlGetIntAttribute( reader, "y1"   , y1 ); 
+            xmlGetIntAttribute( reader, "x2"   , x2 );
+            xmlGetIntAttribute( reader, "y2"   , y2 );
+            xmlGetIntAttribute( reader, "span" , span );
+            xmlGetIntAttribute( reader, "start", start );
+
+            return new ArcShape(owner, start, span, x1, y1, x2, y2);
     }
 
     Shape*  BoxShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){
-        string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"box"));
-
-        if (name == "box"){
+        
             int x1 = -1;
             int x2 = -1;
             int y1 = -1;
@@ -108,47 +148,43 @@ namespace Netlist{
             xmlGetIntAttribute( reader, "y1", y1 );
             xmlGetIntAttribute( reader, "y2", y2 );            
 
-            if(y1 < 0 || y2 < 0 || x1 < 0 || x2 < 0){
+            if(y1 == -1 || y2 ==-1 || x1 ==-1 || x2 ==-1){
                 cerr << "[ERROR] Coordinates not valid for on box of the symbol of the Cell : " << owner->getCell()->getName() << endl;
                 return nullptr;
             }
             Box newBox(x1, y1, x2, y2);
             return new BoxShape(owner, newBox);
-        }
-        cerr << "[ERROR] Coordinates not valid for on line of the symbol" << endl;
+        
+        cerr << "[ERROR] Coordinates not valid for on line of tGGGhe symbol" << endl;
         return nullptr;
     }
 
-    Shape*  ArcShape::fromXml         ( Symbol* owner, xmlTextReaderPtr reader){
-        Shape* s=nullptr;
-        return s;
-    }
 
     Shape*  TermShape::fromXml        ( Symbol* owner, xmlTextReaderPtr reader){
-        string term = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"term"));
+        string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
+            cout << "TermShape::fromXml " << "->" << name << endl;
 
-        if (term == "term"){
+        if (not name.empty()){
             int x1 = -1;
             int y1 = -1;
-            TermShape::NameAlign align = toNameAlign(xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"align")));
+            NameAlign align = toNameAlign(xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"align")));
             xmlGetIntAttribute( reader, "x1", x1 );
             xmlGetIntAttribute( reader, "y1", y1 );            
 
-            if(y1 < 0 || x1 < 0){
+            if(y1 ==-1 || x1 == -1){
+                cout << x1 << y1 << endl;
                 cerr << "[ERROR] Coordinates not valid for on box of the symbol of the Cell : " << owner->getCell()->getName() << endl;
                 return nullptr;
             }
-
-            string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
-            if(not name.empty())
-                return new TermShape(owner, name, x1, y1, align);
+            cout << x1 << y1 << endl;
+            return new TermShape(owner, name, x1, y1, align);
         }
         cerr << "[ERROR] Coordinates not valid for on line of the symbol" << endl;
         return nullptr;
     }
 
     Shape* Shape::fromXml ( Symbol* owner, xmlTextReaderPtr reader ) {
-        // Factory-like method.
+       cout << "Shape::fromXml " << endl; // Factory-like method.
       const xmlChar* boxTag
         = xmlTextReaderConstString( reader, (const xmlChar*)"box" );
       const xmlChar* ellipseTag
@@ -162,18 +198,26 @@ namespace Netlist{
       const xmlChar* nodeName
           = xmlTextReaderConstLocalName( reader );
 
+          cout << xmlCharToString(xmlTextReaderLocalName(reader)) << " - "  << endl;
+
       Shape* shape = NULL;
       if (boxTag == nodeName)
         shape = BoxShape::fromXml( owner, reader );
       if (ellipseTag == nodeName)
         shape = EllipseShape::fromXml( owner, reader );
-      if (arcTag == nodeName)
+      if (arcTag == nodeName){
+        cout << "JE rentre dans arcshape" << endl;
         shape = ArcShape::fromXml( owner, reader );
-      if (lineTag == nodeName)
+        }
+      if (lineTag == nodeName){
         shape = LineShape::fromXml( owner, reader );
-      if (termTag == nodeName)
-        shape = TermShape::fromXml( owner, reader );
+        cout << "termTag == nodeName" << endl;
+      }
+      if (termTag == nodeName){
+        cout << "termTag == nodeName" << endl;
 
+        shape = TermShape::fromXml( owner, reader );
+}
       if (shape == NULL)
         cerr << "[ERROR] Unknown or misplaced tag <" << nodeName << "> (line:"
              << xmlTextReaderGetParserLineNumber(reader) << ")." << endl;
@@ -188,28 +232,51 @@ namespace Netlist{
     */
 
     void   LineShape::toXml        ( std::ostream& stream ){
-        stream << "<line x1=\"" << getX1()
+        stream << ++indent << "<line x1=\"" << getX1()
                << "\" y1=\""    << getY1()
-               << "x2=\""       << getX2()
+               << "\" x2=\""       << getX2()
                << "\" y2=\""    << getY2()
                << "\"/>\n";
+        --indent;
     }
 
     void    BoxShape::toXml ( std::ostream& stream ){
-        stream << "<box x1=\"" << getBox().getX1()
+        stream << ++indent << "<box x1=\"" << getBox().getX1()
                << "\" y1=\""   << getBox().getY1() 
                << "x2=\""      << getBox().getX2() 
                << "\" y2=\""   << getBox().getY2() 
                << "\"/>\n";
+        --indent;
     }
 
 
     void    TermShape::toXml ( std::ostream& stream ){
-        stream << "<term name=\"" << getTerm()->getName()
+        stream << ++indent <<"<term name=\"" << getTerm()->getName()
                <<"\" x1=\""       << getX1()
                << "\" y1=\""      << getY1()
                << "\" align=\""   << TermShape::toString(getAlign())
                <<"\"/>\n";
+        --indent;
+    }
+
+    void    ArcShape::toXml ( std::ostream& stream ){
+        stream << ++indent << "<arc x1=\"" << getBox().getX1()
+               << "\" y1=\""   << getBox().getY1() 
+               << " x2=\""      << getBox().getX2() 
+               << "\" y2=\""   << getBox().getY2() 
+               << "\" start=\""<< getStart()
+               << "\" span=\"" << getSpan()
+               <<"\"/>\n";
+        --indent;
+    }
+
+    void    EllipseShape::toXml ( std::ostream& stream ){
+        stream << ++indent << "<ellipse x1=\"" << getBox().getX1()
+               << "\" y1=\""   << getBox().getY1() 
+               << "x2=\""      << getBox().getX2() 
+               << "\" y2=\""   << getBox().getY2() 
+               << "\"/>\n";
+        --indent;
     }
 
 }  // Netlist namespace.

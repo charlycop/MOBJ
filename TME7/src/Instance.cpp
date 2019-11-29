@@ -17,19 +17,20 @@ namespace Netlist{
     }
 
     Instance* Instance::fromXml(Cell* cell, xmlTextReaderPtr reader){
-
+        cout << "je rentre dans Instance::fromXml" << endl;
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "instance"){
 
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string    mastercell= xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"mastercell"));
             string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));
             string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
-            
+            cout << "Ajout de Instance : " << name << endl;
             Cell* masterCell = Cell::find(mastercell);
 
             if(masterCell->getName() == mastercell && not name.empty()){
                 Instance* newInstance = new Instance(cell, masterCell , name);
                 newInstance->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+                cout << "le pointeur : " << newInstance << endl;
                 return newInstance;
             }
         }
