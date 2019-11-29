@@ -37,7 +37,7 @@ namespace Netlist{
 
     Net* Net::fromXml(Cell* cell, xmlTextReaderPtr reader){
 
-        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){
+        if (xmlCharToString(xmlTextReaderLocalName(reader)) == "net"){ // Les Nets
 
             string name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string type = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"type"));
@@ -63,6 +63,7 @@ namespace Netlist{
                 return lastNet;
         }
   
+        cerr << "[ERROR] Problem inside Net::fromXml" << endl;
         return nullptr;
     }
     
@@ -122,7 +123,6 @@ namespace Netlist{
             if (n == node) node = NULL;
             return true;
         }
-        std::cout << "attention, destruction du pointeur de node dans Net::remove() échouée" << std::endl;
         return false;
     }
 

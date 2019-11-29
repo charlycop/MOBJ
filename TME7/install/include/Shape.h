@@ -77,9 +77,9 @@ class TermShape : public Shape{
 
                        TermShape     ( Symbol* s, std::string, long x1, long y1, NameAlign align);
                       ~TermShape     ();
-            Box        getBoundingBox() const;
-    static  Shape*     fromXml       ( Symbol*, xmlTextReaderPtr );
-            void       toXml         ( std::ostream& );
+           Box         getBoundingBox() const;
+    static Shape*      fromXml       ( Symbol*, xmlTextReaderPtr );
+           void        toXml         ( std::ostream& );
     static std::string toString      ( NameAlign );
     static NameAlign   toNameAlign   ( std::string );
 
@@ -97,9 +97,9 @@ class TermShape : public Shape{
 }; // Fin class Termshape
 
     // Pour la classe TermShape
-    inline long      TermShape::getX1       () { return x1_;   }
-    inline long      TermShape::getY1       () { return y1_;   }
-    inline Term*     TermShape::getTerm     () { return term_; }
+    inline long                 TermShape::getX1       () { return x1_;   }
+    inline long                 TermShape::getY1       () { return y1_;   }
+    inline Term*                TermShape::getTerm     () { return term_; }
     inline TermShape::NameAlign TermShape::getAlign    () { return align_;}
 
     
@@ -108,8 +108,8 @@ class EllipseShape : public Shape{
                     EllipseShape     ( Symbol* s, long x1, long y1, long x2, long y2);
                    ~EllipseShape     ();
            Box      getBoundingBox   () const;
-           void     toXml            ( std::ostream& stream );
-    static Shape*   fromXml          ( Symbol* owner, xmlTextReaderPtr reader);
+           void     toXml            ( std::ostream& );
+    static Shape*   fromXml          ( Symbol* , xmlTextReaderPtr );
     inline Box      getBox           ();
 
 

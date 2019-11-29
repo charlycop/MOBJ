@@ -40,10 +40,10 @@ namespace Netlist {
       std::vector<Shape*>  shapes_;
   };
 
-  inline       Cell*                Symbol::getCell        () const   { return owner_ ;         }
-  inline const std::vector<Shape*>  Symbol::getShapes      () const   { return shapes_;         }
+  inline       Cell*                Symbol::getCell        () const          { return owner_ ;         }
+  inline const std::vector<Shape*>  Symbol::getShapes      () const          { return shapes_;         }
   inline       Point                Symbol::getTermPosition( Term* t ) const { return t->getPosition();}
-  inline       void                 Symbol::add            ( Shape* s){ shapes_.push_back(s);   }
+  inline       void                 Symbol::add            ( Shape* s)       { shapes_.push_back(s);   }
 
 
   }// Netlist namespace.

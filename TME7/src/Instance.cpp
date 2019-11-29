@@ -22,19 +22,19 @@ namespace Netlist{
 
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string    mastercell= xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"mastercell"));
-            string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));
-            string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
-            cout << "Ajout de Instance : " << name << endl;
+            int x, y;
+            xmlGetIntAttribute( reader, "x"   , x );
+            xmlGetIntAttribute( reader, "y"   , y );
+
             Cell* masterCell = Cell::find(mastercell);
 
             if(masterCell->getName() == mastercell && not name.empty()){
                 Instance* newInstance = new Instance(cell, masterCell , name);
-                newInstance->setPosition(atoi(x.c_str()), atoi(y.c_str()));
-                cout << "le pointeur : " << newInstance << endl;
+                newInstance->setPosition(x, y);
                 return newInstance;
             }
         }
-
+        cerr << "[ERROR] Problem inside Instance::fromXml" << endl;
         return nullptr;
     }
 

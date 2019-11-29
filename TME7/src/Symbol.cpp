@@ -25,6 +25,8 @@ namespace Netlist {
   void     Symbol::toXml           ( std::ostream& stream) const{
       stream << indent << "<symbol>\n";
 
+      // Pour être sur que les symboles soient regroupés
+      // On itère plusieurs fois.
       for(auto& shape : shapes_){
           BoxShape* boxshape = dynamic_cast<BoxShape*>(shape);
           if (boxshape)
@@ -59,22 +61,12 @@ namespace Netlist {
   }
 
   Symbol*  Symbol::fromXml         ( Cell* c, xmlTextReaderPtr reader){
-            cout << "Symbol::fromXml " << endl;
-           // cout << xmlCharToString(xmlTextReaderLocalName(reader)) << " - "  << endl;
-           // cout << c->getName() << endl;
-            //cout << c->getSymbol()->getCell()->getName() << endl;
-            cout << xmlCharToString(xmlTextReaderLocalName(reader)) << endl;
-            cout << xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name")) << endl;
-            Shape* retour;
-            if (xmlCharToString(xmlTextReaderLocalName(reader)) != "symbol")
-                retour = Shape::fromXml(c->getSymbol(), reader);
-
-            return retour->getSymbol();
+      Shape* retour = Shape::fromXml(c->getSymbol(), reader);
+      return retour->getSymbol();
   }
   
   Box Symbol::getBoundingBox () const {
     Box bb;
-
     for (size_t i=0 ; i < shapes_.size() ; ++i)
         bb.merge(shapes_[i]->getBoundingBox());
 
@@ -90,7 +82,7 @@ namespace Netlist {
     return 0;
   }
 
- void Symbol::remove ( Shape* shape){
+  void Symbol::remove ( Shape* shape){
     if (shape) {
         for ( std::vector<Shape*>::iterator is = shapes_.begin(); is != shapes_.end() ; ++is ) {
             if (*is == shape) {
@@ -98,12 +90,6 @@ namespace Netlist {
             }
         }
     }
-}
-
-
-
-
-
-
+  }
 
 } // Fin namespace

@@ -11,21 +11,27 @@ using namespace std;
 namespace Netlist {
 
     void  Term::toXml ( std::ostream& stream){
-        stream << indent <<"<term name=\"" << getName() << "\" direction=\"" << Term::toString(getDirection()) << "\" x=\"" << getPosition().getX() << "\" y=\"" << getPosition().getY() << "\"/>\n";
+        stream << indent 
+            <<"<term name=\""    << getName()
+            << "\" direction=\"" << Term::toString(getDirection())
+            << "\" x=\""         << getPosition().getX()
+            << "\" y=\""         << getPosition().getY() 
+            << "\"/>\n";
     }
 
     Term* Term::fromXml(Cell* cell, xmlTextReaderPtr reader){
-        cout << "je rentre dans Term::fromXml" << endl;
+
         if (xmlCharToString(xmlTextReaderLocalName(reader)) == "term"){
            
             string         name = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"name"));
             string    direction = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"direction"));
-            string            x = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"x"));
-            string            y = xmlCharToString(xmlTextReaderGetAttribute(reader, (const xmlChar*)"y"));
+            int x, y;
+            xmlGetIntAttribute( reader, "x"   , x );
+            xmlGetIntAttribute( reader, "y"   , y );
 
             if(not name.empty() && not direction.empty()){
                 Term* newTerm = new Term(cell, name, toDirection(direction));
-                newTerm->setPosition(atoi(x.c_str()), atoi(y.c_str()));
+                newTerm->setPosition(x, y);
                 return newTerm;
             }
         }
@@ -34,7 +40,8 @@ namespace Netlist {
     }
 
     Term::Term ( Cell* owner , const std::string& name, Direction direction): 
-    owner_(owner), name_(name),direction_(direction),type_(External),net_(NULL), node_(this) {
+    owner_(owner), name_(name),direction_(direction),type_(External),net_(NULL), node_(this) 
+    {
         static_cast<Cell*>(owner_) -> add(this);
     }
 
@@ -79,6 +86,39 @@ namespace Netlist {
 
     void  Term::setPosition  ( int x, int y ){
         node_.setPosition(x,y);
+    }
+    
+
+    std::string Term::toString    (Term::Type t){
+          if (t==Internal)
+            return "Internal";
+          return "External";
+    }
+          
+    std::string  Term::toString    ( Term::Direction d){
+       switch(d){
+          case In      : return "In";
+          case Out     : return "Out";
+          case Inout   : return "Inout";
+          case Tristate: return "Tristate";
+          case Transcv : return "Transcv";
+          default      : return "Unknown";
+        }
+    }
+
+    Term::Type Term::toType(std::string type){
+        if      (type == "Internal")       
+            return Internal;
+        return External;
+    }
+
+    Term::Direction    Term::toDirection ( std::string dir){
+        if      (dir == "In")       return In;
+        else if (dir == "Out")      return Out;
+        else if (dir == "Inout")    return Inout;
+        else if (dir == "Tristate") return Tristate;
+        else if (dir == "Transcv")  return Transcv;
+        return Unknown;
     }
 
 }
