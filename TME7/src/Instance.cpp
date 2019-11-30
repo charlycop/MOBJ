@@ -90,6 +90,8 @@ namespace Netlist{
             TermShape* termshape = dynamic_cast<TermShape*>(termCell);
             if (termshape){      
                 string name = termshape->getTerm()->getName();
+                Cell* Inst = termshape->getTerm()->getCell();
+                //cout << Inst << endl;
                 for(auto& termInst : getTerms()){
                     if(name == termInst->getName()){
                         int x1 = termshape->getX1() + x;
@@ -98,12 +100,13 @@ namespace Netlist{
                         cout << "Nouvelle coordonnées term : " 
                              << termInst->getName() << "("
                              << x1 << "," << y1 
-                             << ") - Instance : " << getName() <<endl;
+                             << ") - Instance : " << getName() << endl;
+                        }
                     }
                 }
             }
         }
-    }
+    
 
 
 }

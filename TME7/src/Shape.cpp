@@ -37,6 +37,15 @@ namespace Netlist{
         Cell* cell = getSymbol()->getCell();
         term_      = cell->getTerm(name);
     }
+    /*
+     TermShape::TermShape  (Symbol* s, string name, NameAlign align):
+    Shape(s), term_(NULL), align_(align)
+    {
+        Cell* cell = getSymbol()->getCell();
+        term_      = cell->getTerm(name);
+        x1_        = term_->getPosition().getX();
+        y1_        = term_->getPosition().getY();
+    }*/
 
     ArcShape::ArcShape( Symbol* s, long start, long span, long x1, long y1, long x2, long y2):
     Shape(s), box_(Box(x1,y1,x2,y2)), start_(start), span_(span)
@@ -158,7 +167,7 @@ namespace Netlist{
                 xmlGetIntAttribute( reader, "x1", x1 );
                 xmlGetIntAttribute( reader, "y1", y1 );            
 
-                return new TermShape(owner, name, x1, y1, align);
+                return new TermShape(owner, name,x1, y1, align);
             }
         }    
         cerr << "[ERROR] Problem inside TermShape::fromXml" << endl;

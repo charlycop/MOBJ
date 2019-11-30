@@ -75,7 +75,7 @@ class TermShape : public Shape{
     public:
         enum NameAlign { top_left=1, top_right=2, bottom_left=3, bottom_right=4 };
 
-                       TermShape     ( Symbol* s, std::string, long x1, long y1, NameAlign align);
+                       TermShape     ( Symbol* s, std::string, long x, long y, NameAlign align);
                       ~TermShape     ();
            Box         getBoundingBox() const;
     static Shape*      fromXml       ( Symbol*, xmlTextReaderPtr );
