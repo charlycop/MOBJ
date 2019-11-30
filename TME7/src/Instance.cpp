@@ -84,6 +84,25 @@ namespace Netlist{
     void  Instance::setPosition   ( int x, int y ){
         position_.setX(x);
         position_.setY(y); 
+
+        // On va chercher les terms du symbol associé
+        for(auto& termCell : getMasterCell()->getSymbol()->getShapes()){
+            TermShape* termshape = dynamic_cast<TermShape*>(termCell);
+            if (termshape){      
+                string name = termshape->getTerm()->getName();
+                for(auto& termInst : getTerms()){
+                    if(name == termInst->getName()){
+                        int x1 = termshape->getX1() + x;
+                        int y1 = termshape->getY1() + y;
+                        termInst->setPosition(x1, y1);
+                        cout << "Nouvelle coordonnées term : " 
+                             << termInst->getName() << "("
+                             << x1 << "," << y1 
+                             << ") - Instance : " << getName() <<endl;
+                    }
+                }
+            }
+        }
     }
 
 
