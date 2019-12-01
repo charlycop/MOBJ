@@ -99,7 +99,6 @@ namespace Netlist{
                              << ")\nPosition TermShape de la Cell : "     << "(" << termshape->getX1() << "," << termshape->getY1()
                              << ")\nPosition de l'Instance : ("           << getPosition().getX() << "," << getPosition().getY()<< ")" <<endl;
 
-
                         int x1 = termshape->getX1() + x;                 // On additionne la position de l'instance
                         int y1 = termshape->getY1() + y;                 // et la position du termshape
                         termInst->setPosition(x1, y1);                   // et résultat dans le term concerné de l'instance
