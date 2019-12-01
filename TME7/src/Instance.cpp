@@ -6,6 +6,7 @@
 #include "Net.h"
 #include "Instance.h"
 #include "Cell.h"
+#include "Shape.h"
 #include "Indentation.h"
 
 using namespace std;
@@ -77,36 +78,43 @@ namespace Netlist{
     }
     
     void  Instance::setPosition   ( const Point& p){
-        position_.setX(p.getX());
-        position_.setY(p.getY()); 
+        setPosition   (p.getX(), p.getY());
     }
 
     void  Instance::setPosition   ( int x, int y ){
         position_.setX(x);
         position_.setY(y); 
 
-        // On va chercher les terms du symbol associé
-        for(auto& termCell : getMasterCell()->getSymbol()->getShapes()){
+        for(auto& termCell : getMasterCell()->getSymbol()->getShapes()){ // Pour chaque shape de la Cell de référence
             TermShape* termshape = dynamic_cast<TermShape*>(termCell);
-            if (termshape){      
-                string name = termshape->getTerm()->getName();
-                Cell* Inst = termshape->getTerm()->getCell();
-                //cout << Inst << endl;
-                for(auto& termInst : getTerms()){
-                    if(name == termInst->getName()){
-                        int x1 = termshape->getX1() + x;
-                        int y1 = termshape->getY1() + y;
-                        termInst->setPosition(x1, y1);
-                        cout << "Nouvelle coordonnées term : " 
-                             << termInst->getName() << "("
-                             << x1 << "," << y1 
-                             << ") - Instance : " << getName() << endl;
-                        }
+            if (termshape){                                              // Si c'est un TermShape
+                string name = termshape->getTerm()->getName();           // On prend son nom
+                for(auto& termInst : getTerms()){                        // Pour chaque term de cette Instance
+                    if(name == termInst->getName()){                     // Si le termshape à le même nom que le term
+
+                        //Affichage de contrôle.
+                        cout << "\n-----"<< "Instance : "                 << termInst->getInstance()->getName() 
+                             <<"-----\nPosition du term_("                << name 
+                             << ") : (" << termInst->getPosition().getX() << "," << termInst->getPosition().getY() 
+                             << ")\nPosition TermShape de la Cell : "     << "(" << termshape->getX1() << "," << termshape->getY1()
+                             << ")\nPosition de l'Instance : ("           << getPosition().getX() << "," << getPosition().getY()<< ")" <<endl;
+
+
+                        int x1 = termshape->getX1() + x;                 // On additionne la position de l'instance
+                        int y1 = termshape->getY1() + y;                 // et la position du termshape
+                        termInst->setPosition(x1, y1);                   // et résultat dans le term concerné de l'instance
+                        
+                        //Affichage de contrôle.
+                        cout << "Nouvelle position du term_("  << name  << ") : ("         // On affiche pour contrôler
+                             << termInst->getPosition().getX() << ","   << termInst->getPosition().getY() << ")"
+                             << "\n--------------------\n"     << endl;
                     }
                 }
             }
         }
+    }
+
     
 
 
-}
+} // Fin namespace NetList
