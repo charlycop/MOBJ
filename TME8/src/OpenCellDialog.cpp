@@ -45,7 +45,11 @@ namespace Netlist{
         std::cout << "on rentre ici" << std::endl;
         int  dialogResult = exec();
         *ptr = getCellName().toStdString();
-        return true;
+        if(ptr)
+            return true;
+        else
+            std::cout << "Nom de cellule vide !" << std::endl;
+        return false;
     }
 
     const  QString   OpenCellDialog :: getCellName  ()  const{

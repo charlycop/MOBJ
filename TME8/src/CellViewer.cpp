@@ -73,8 +73,12 @@ namespace Netlist{
 
     void   CellViewer :: openCell  (){
         std::string cellptr;
-        openCellDialog_->run(&cellptr);
-        Cell* cell = Cell::load(cellptr);
+        Cell* cell;
+        if(openCellDialog_->run(&cellptr)){
+            cell = Cell::find(cellptr);
+            if (cell == nullptr)
+                cell = Cell::load(cellptr);
+        }
         setCell(cell);
 
     }

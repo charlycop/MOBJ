@@ -228,7 +228,7 @@ namespace Netlist{
         stream << ++indent
                << "<box x1=\"" << getBox().getX1()
                << "\" y1=\""   << getBox().getY1() 
-               << "\" x2=\""      << getBox().getX2() 
+               << "\" x2=\""   << getBox().getX2() 
                << "\" y2=\""   << getBox().getY2() 
                << "\"/>\n";
         --indent;

@@ -27,8 +27,7 @@ int  main (int argc , char* argv []) {
   Cell::load( "and2" );
   Cell::load( "or2" );
   Cell::load( "xor2" );
-  
-  //Cell* halfadder = Cell::load( "halfadder" );
+  Cell::load( "halfadder" );
   //viewer->setCell(halfadder);
    viewer->show ();
    int  rvalue = qa ->exec ();
