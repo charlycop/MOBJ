@@ -4,9 +4,20 @@
 #include  <QHBoxLayout>
 #include  <QVBoxLayout>
 #include "OpenCellDialog.h"
+#include "Cell.h"
+#include <string>
 
 namespace Netlist{
 
+    std::string listeCells(){
+        std::string listCells = "Liste des cellules disponibles :\n\n";
+        for(auto& cell : Cell::getAllCells())
+            listCells += "- " + cell->getName()+"\n";
+        
+        listCells += "\n Entrez le nom de la cellule a afficher:";
+
+        return listCells;
+    }
 
     OpenCellDialog::OpenCellDialog ( QWidget* parent )
     : QDialog   (parent)
@@ -14,7 +25,7 @@ namespace Netlist{
     {
         setWindowTitle( tr("Open Cell") );
         QLabel* label = new  QLabel();
-        label ->setText( tr("Enter Cell name to open(without extention)") );
+        label ->setText( (QString::fromStdString(listeCells())) );
         lineEdit_ = new  QLineEdit();
         lineEdit_ ->setMinimumWidth( 400 );
         QPushButton* okButton = new  QPushButton();

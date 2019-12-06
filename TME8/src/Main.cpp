@@ -18,8 +18,8 @@ using namespace std;
 
 
 int  main (int argc , char* argv []) {
-    QApplication* qa = new  QApplication(argc ,argv);
-    CellViewer* viewer = new  CellViewer();
+
+
   Cell::load( "vdd" );
   Cell::load( "gnd" );
   Cell::load( "TransistorN" );
@@ -28,9 +28,15 @@ int  main (int argc , char* argv []) {
   Cell::load( "or2" );
   Cell::load( "xor2" );
   Cell::load( "halfadder" );
-  //viewer->setCell(halfadder);
-   viewer->show ();
-   int  rvalue = qa ->exec ();
-    delete  qa;
-    return  rvalue;
+  Cell::load( "inverter" );
+  Cell::load( "fulladder" );
+  
+  QApplication* qa = new  QApplication(argc ,argv);
+  CellViewer* viewer = new  CellViewer();
+
+
+  viewer->show ();
+  int  rvalue = qa ->exec ();
+  delete  qa;
+  return  rvalue;
 }
