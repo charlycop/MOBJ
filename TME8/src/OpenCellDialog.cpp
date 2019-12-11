@@ -9,6 +9,9 @@
 
 namespace Netlist{
 
+    /*
+    * Fournis la liste des cells en mémoire
+    */
     std::string listeCells(){
         std::string listCells = "Liste des cellules disponibles :\n\n";
         for(auto& cell : Cell::getAllCells())
