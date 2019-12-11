@@ -15,7 +15,6 @@ namespace Netlist {
   class Instance;
   class Cell;
   class Point;
-
   class Term {
 
     public:

@@ -64,6 +64,8 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/Cell.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/SaveCellDialog.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/OpenCellDialog.h"
+    "/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesWidget.h"
+    "/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellWidget.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellViewer.h"
     )

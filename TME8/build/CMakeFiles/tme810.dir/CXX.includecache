@@ -32,19 +32,11 @@ string
 iostream
 -
 
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/Node.h
-iostream
--
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
 vector
 -
-libxml/xmlreader.h
--
-Indentation.h
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/Indentation.h
-Point.h
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/Point.h
 
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/OpenCellDialog.cpp
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.cpp
 QLabel
 -
 QLineEdit
@@ -55,14 +47,18 @@ QHBoxLayout
 -
 QVBoxLayout
 -
-OpenCellDialog.h
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/OpenCellDialog.h
+QAbstractTableModel
+-
+InstancesModel.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h
+Instance.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
 Cell.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Cell.h
 string
 -
 
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/OpenCellDialog.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h
 QWidget
 -
 QPixmap
@@ -77,8 +73,24 @@ QDialog
 -
 QLineEdit
 -
+QAbstractTableModel
+-
 Box.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Box.h
+Cell.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Cell.h
+
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Node.h
+iostream
+-
+vector
+-
+libxml/xmlreader.h
+-
+Indentation.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Indentation.h
+Point.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Point.h
 
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Point.h
 iostream
@@ -124,6 +136,10 @@ libxml/xmlreader.h
 string
 -
 
+/usr/include/QtCore/QAbstractTableModel
+qabstractitemmodel.h
+/usr/include/QtCore/qabstractitemmodel.h
+
 /usr/include/QtCore/QPoint
 qpoint.h
 /usr/include/QtCore/qpoint.h
@@ -131,6 +147,14 @@ qpoint.h
 /usr/include/QtCore/QRect
 qrect.h
 /usr/include/QtCore/qrect.h
+
+/usr/include/QtCore/qabstractitemmodel.h
+QtCore/qvariant.h
+-
+QtCore/qobject.h
+-
+QtCore/qhash.h
+-
 
 /usr/include/QtCore/qpoint.h
 QtCore/qnamespace.h

@@ -13,5 +13,7 @@
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/Cell.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/SaveCellDialog.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/OpenCellDialog.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/InstancesWidget.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/InstancesModel.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/CellWidget.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/CellViewer.h
