@@ -33,15 +33,24 @@ namespace Netlist{
         return  2; 
     }
 
-    QVariant   InstancesModel ::data( const  QModelIndex& index, int  role ) const{
+    QVariant   InstancesModel::data( const  QModelIndex& index, int  role ) const{
         if (not  cell_  or not  index.isValid ())  return  QVariant ();
-        if (role == Qt:: DisplayRole) {
+        //std::cout << "------\nROLE : " << role << "(" <<Qt:: DisplayRole<<")"<< std::endl;
+
+        if (role == Qt::DisplayRole) {
             int  row = index.row();
+            std::cout << "------\nROLE : " << role << "(" <<Qt::DisplayRole<<")"<< std::endl;
             switch ( index.column() ) {
                 case 0:  return  cell_->getInstances()[row]->getName().c_str();
                 case 1:  return  cell_->getInstances()[row]->getMasterCell()->getName().c_str();
             }
         }
+
+        if(role == Qt::TextAlignmentRole){
+            return Qt::AlignCenter;
+        }
+
+
         return  QVariant ();
     }
 

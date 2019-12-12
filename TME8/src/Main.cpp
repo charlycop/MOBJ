@@ -29,7 +29,7 @@ int  main (int argc , char* argv []) {
   Cell::load( "xor2" );
   Cell::load( "halfadder" );
   Cell::load( "inverter" );
-  Cell*test = Cell::load( "fulladder" );
+  Cell::load( "fulladder" );
   
   QApplication* qa = new  QApplication(argc ,argv);
   CellViewer* viewer = new  CellViewer();

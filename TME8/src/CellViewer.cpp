@@ -69,6 +69,8 @@ namespace Netlist{
         action ->setVisible   ( true );
         fileMenu ->addAction( action  );
         connect( action , SIGNAL(triggered ()), this , SLOT(close ()) );
+
+
     }
 
     void   CellViewer :: saveCell  (){

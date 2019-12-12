@@ -19,20 +19,25 @@ namespace Netlist{
     , view_           (new  QTableView(this))
     , load_           (new  QPushButton(this))
     {
+        setWindowTitle( tr("Cellules Instanciees") );
+        setMinimumSize(450,300);
         setAttribute( Qt::WA_QuitOnClose   , false  );
         setAttribute( Qt::WA_DeleteOnClose , false );
         setContextMenuPolicy( Qt::ActionsContextMenu  );
-
         view_->setShowGrid               ( false  );
         view_->setAlternatingRowColors( true );
         view_->setSelectionBehavior    ( QAbstractItemView :: SelectRows  );
         view_->setSelectionMode         ( QAbstractItemView :: SingleSelection  );
         view_->setSortingEnabled       ( true );
+        
         view_->setModel                  ( baseModel_  );
         QHeaderView* horizontalHeader = view_->horizontalHeader ();
         horizontalHeader->setDefaultAlignment( Qt::AlignHCenter  );
         horizontalHeader->setMinimumSectionSize( 300 );
         horizontalHeader->setStretchLastSection( true );
+        //horizontalHeader->setSortIndicatorShown(true);
+        //horizontalHeader->setSortIndicator(1, Qt::DescendingOrder);
+
         QHeaderView* verticalHeader = view_->verticalHeader ();
         verticalHeader->setVisible( false  );
         load_ ->setText( "Load" );
@@ -44,13 +49,13 @@ namespace Netlist{
         setLayout(miseEnPage);
     }
 
-    int   InstancesWidget :: getSelectedRow  ()  const{
+    int   InstancesWidget::getSelectedRow  ()  const{
         QModelIndexList  selecteds = view_ ->selectionModel ()->selection (). indexes ();
         if (selecteds.empty ())  return  -1;
         return  selecteds.first ().row ();
     }
     
-    void   InstancesWidget ::load (){
+    void   InstancesWidget::load (){
         int  selectedRow = getSelectedRow ();
         if (selectedRow  < 0)  return;
         cellViewer_->setCell( baseModel_->getModel(selectedRow) );
