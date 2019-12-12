@@ -50,6 +50,8 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/CellWidget.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Indentation.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
+ /users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h
+ /users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesWidget.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Line.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Net.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Node.h
@@ -60,8 +62,10 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Symbol.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/Term.h
  /users/enseig/oudy/Bureau/MOBJ/TME8/src/XmlUtil.h
+ /usr/include/QtCore/QAbstractTableModel
  /usr/include/QtCore/QPoint
  /usr/include/QtCore/QRect
+ /usr/include/QtCore/qabstractitemmodel.h
  /usr/include/QtCore/qpoint.h
  /usr/include/QtCore/qrect.h
  /usr/include/QtGui/QApplication
@@ -75,6 +79,7 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o
  /usr/include/QtGui/QPen
  /usr/include/QtGui/QPixmap
  /usr/include/QtGui/QResizeEvent
+ /usr/include/QtGui/QTableView
  /usr/include/QtGui/QWidget
  /usr/include/QtGui/qapplication.h
  /usr/include/QtGui/qbrush.h
@@ -87,6 +92,7 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o
  /usr/include/QtGui/qpainter.h
  /usr/include/QtGui/qpen.h
  /usr/include/QtGui/qpixmap.h
+ /usr/include/QtGui/qtableview.h
  /usr/include/QtGui/qwidget.h
  /usr/include/libxml2/libxml/SAX.h
  /usr/include/libxml2/libxml/SAX2.h

@@ -49,6 +49,8 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/CellWidget.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Indentation.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
+CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h
+CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesWidget.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Line.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Net.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Node.h
@@ -59,8 +61,10 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Symbol.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Term.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/XmlUtil.h
+CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtCore/QAbstractTableModel
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtCore/QPoint
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtCore/QRect
+CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtCore/qabstractitemmodel.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtCore/qpoint.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtCore/qrect.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QApplication
@@ -74,6 +78,7 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QPainter
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QPen
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QPixmap
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QResizeEvent
+CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QTableView
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/QWidget
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qapplication.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qbrush.h
@@ -86,6 +91,7 @@ CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qmenubar.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qpainter.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qpen.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qpixmap.h
+CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qtableview.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/QtGui/qwidget.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/libxml2/libxml/SAX.h
 CMakeFiles/tme810.dir/CellViewer.cpp.o: /usr/include/libxml2/libxml/SAX2.h

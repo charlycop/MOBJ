@@ -9,6 +9,7 @@
 #include  <QMainWindow>
 #include  "SaveCellDialog.h"
 #include  "OpenCellDialog.h"
+#include  "InstancesWidget.h"
 #include  "CellWidget.h"
 #include  "Term.h"
 #include  "Instance.h"
@@ -27,10 +28,12 @@ namespace Netlist{
     , cellWidget_     (NULL)
     , saveCellDialog_(NULL)
     , openCellDialog_(NULL)
+    , instancesWidget_(NULL)
     {
         cellWidget_     = new  CellWidget  ();
-        saveCellDialog_ = new  SaveCellDialog( this );
-        openCellDialog_ = new  OpenCellDialog( this );
+        saveCellDialog_ = new  SaveCellDialog ( this );
+        openCellDialog_ = new  OpenCellDialog ( this );
+        instancesWidget_= new  InstancesWidget();
 
         setCentralWidget( cellWidget_  );
         QMenu* fileMenu = menuBar()->addMenu( "&File" );
@@ -49,7 +52,15 @@ namespace Netlist{
         action ->setShortcut ( QKeySequence("CTRL+O") );
         action ->setVisible   ( true );
         fileMenu ->addAction( action  );
-        connect( action , SIGNAL(triggered ()), this , SLOT(openCell()) );        
+        connect( action , SIGNAL(triggered ()), this , SLOT(openCell()) );   
+
+        /* INSTANCEWIDGET */
+        action = new  QAction( "&Show Instances", this );
+        action ->setStatusTip( "Show the MasterCells with their instances" );
+        action ->setShortcut ( QKeySequence("CTRL+I") );
+        action ->setVisible   ( true );
+        fileMenu ->addAction( action  );
+        connect( action , SIGNAL(triggered ()), this , SLOT(showInstancesWidget() ));     
 
         /* QUIT */
         action = new  QAction( "&Quit", this );
@@ -82,6 +93,13 @@ namespace Netlist{
         setCell(cell);
 
     }
+
+    void  CellViewer::showInstancesWidget (){
+        instancesWidget_->setCellViewer(this);
+        instancesWidget_->setCell(getCell());
+        instancesWidget_->show();
+
+    }  // TME9+.
 
     CellViewer::~CellViewer          (){}
 

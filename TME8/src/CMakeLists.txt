@@ -29,6 +29,7 @@
                                       Shape.h
                                       Symbol.h
                                       Cell.h
+                                      InstancesWidget.h
                        )
 
                     set( mocIncludes  SaveCellDialog.h
