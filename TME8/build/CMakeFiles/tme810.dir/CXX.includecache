@@ -26,17 +26,7 @@ Indentation.h
 Symbol.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Symbol.h
 
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/Indentation.h
-string
--
-iostream
--
-
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
-vector
--
-
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.cpp
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellsModel.cpp
 QLabel
 -
 QLineEdit
@@ -49,8 +39,8 @@ QVBoxLayout
 -
 QAbstractTableModel
 -
-InstancesModel.h
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h
+CellsModel.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellsModel.h
 Instance.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
 Cell.h
@@ -58,7 +48,7 @@ Cell.h
 string
 -
 
-/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellsModel.h
 QWidget
 -
 QPixmap
@@ -79,6 +69,16 @@ Box.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Box.h
 Cell.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Cell.h
+
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Indentation.h
+string
+-
+iostream
+-
+
+/users/enseig/oudy/Bureau/MOBJ/TME8/src/Instance.h
+vector
+-
 
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/Node.h
 iostream

@@ -10,6 +10,8 @@
 #include  "SaveCellDialog.h"
 #include  "OpenCellDialog.h"
 #include  "InstancesWidget.h"
+#include  "CellsLib.h"
+
 #include  "CellWidget.h"
 #include  "Term.h"
 #include  "Instance.h"
@@ -26,14 +28,16 @@ namespace Netlist{
     CellViewer :: CellViewer ( QWidget* parent )
     : QMainWindow     (parent)
     , cellWidget_     (NULL)
-    , saveCellDialog_(NULL)
-    , openCellDialog_(NULL)
+    , saveCellDialog_ (NULL)
+    , openCellDialog_ (NULL)
     , instancesWidget_(NULL)
+    , cellsLib_       (NULL)
     {
         cellWidget_     = new  CellWidget  ();
         saveCellDialog_ = new  SaveCellDialog ( this );
         openCellDialog_ = new  OpenCellDialog ( this );
         instancesWidget_= new  InstancesWidget();
+        cellsLib_       = new  CellsLib();
 
         setCentralWidget( cellWidget_  );
         QMenu* fileMenu = menuBar()->addMenu( "&File" );
@@ -53,7 +57,7 @@ namespace Netlist{
         action ->setVisible   ( true );
         fileMenu ->addAction( action  );
         connect( action , SIGNAL(triggered ()), this , SLOT(openCell()) );   
-
+        
         /* INSTANCEWIDGET */
         action = new  QAction( "&Show Instances", this );
         action ->setStatusTip( "Show the MasterCells with their instances" );
@@ -61,6 +65,14 @@ namespace Netlist{
         action ->setVisible   ( true );
         fileMenu ->addAction( action  );
         connect( action , SIGNAL(triggered ()), this , SLOT(showInstancesWidget() ));     
+
+        /* CELLSLIB */
+        action = new  QAction( "&Show loaded Cells", this );
+        action ->setStatusTip( "Show the MasterCells already in memory" );
+        action ->setShortcut ( QKeySequence("CTRL+C") );
+        action ->setVisible   ( true );
+        fileMenu ->addAction( action  );
+        connect( action , SIGNAL(triggered ()), this , SLOT(showCellsLib() ));     
 
         /* QUIT */
         action = new  QAction( "&Quit", this );
@@ -83,25 +95,36 @@ namespace Netlist{
             cell->save(cellName.toStdString());
         }
     }
+    void cellLoaded(){}
 
     void   CellViewer :: openCell  (){
         std::string cellptr;
         Cell* cell;
         if(openCellDialog_->run(&cellptr)){
             cell = Cell::find(cellptr);
-            if (cell == nullptr)
-                cell = Cell::load(cellptr);
+            if (cell == nullptr){
+                if ((cell = Cell::load(cellptr)))
+                    emit cellLoaded();
+            }
+
         }
         setCell(cell);
 
     }
 
+
+
     void  CellViewer::showInstancesWidget (){
         instancesWidget_->setCellViewer(this);
         instancesWidget_->setCell(getCell());
         instancesWidget_->show();
-
     }  // TME9+.
+
+    void  CellViewer::showCellsLib        (){
+        cellsLib_->setCellViewer(this);
+        cellsLib_->show();
+    }  // TME9+.
+
 
     CellViewer::~CellViewer          (){}
 

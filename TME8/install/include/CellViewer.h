@@ -12,7 +12,6 @@
 
 #include  "SaveCellDialog.h"
 #include  "OpenCellDialog.h"
-
 #include  "CellWidget.h"
 #include  "Term.h"
 #include  "Instance.h"
@@ -23,11 +22,14 @@
 #include  "Node.h"
 #include  "Net.h"
 //#include  "InstancesWidget.h"
+//#include "CellsLib.h"
+
 
 
 
 namespace Netlist{
 class InstancesWidget;
+class CellsLib;
 
     class CellViewer : public QMainWindow {
         Q_OBJECT;
@@ -40,18 +42,17 @@ class InstancesWidget;
                 void      setCell             ( Cell* );
                 void      saveCell            ();
                 void      openCell            ();
-        inline  void      showCellsLib        ();  // TME9+.
+                void      showCellsLib        ();  // TME9+.
                 void      showInstancesWidget ();  // TME9+.
       private:
         CellWidget*      cellWidget_;
-        //CellsLib*        cellsLib_;         // TME9+.
+        CellsLib*        cellsLib_;         // TME9+.
         InstancesWidget* instancesWidget_;  // TME9+.
         SaveCellDialog*  saveCellDialog_;
         OpenCellDialog*  openCellDialog_;
     };
 
     inline Cell* CellViewer::getCell             () const{ return cellWidget_->getCell(); }
-    inline void  CellViewer::showCellsLib        (){}  // TME9+.
 
 } // Fin de Netlist
 

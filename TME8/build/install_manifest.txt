@@ -18,3 +18,5 @@
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/InstancesModel.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/CellWidget.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/CellViewer.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/CellsLib.h
+/users/enseig/oudy/Bureau/MOBJ/TME8/build/../install/include/CellsModel.h

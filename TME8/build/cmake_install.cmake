@@ -69,6 +69,8 @@ IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/InstancesModel.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellWidget.h"
     "/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellViewer.h"
+    "/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellsLib.h"
+    "/users/enseig/oudy/Bureau/MOBJ/TME8/src/CellsModel.h"
     )
 ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
 
