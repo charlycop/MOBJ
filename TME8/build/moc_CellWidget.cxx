@@ -22,25 +22,40 @@ static const uint qt_meta_data_Netlist__CellWidget[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: signature, parameters, type, tag, flags
+      21,   20,   20,   20, 0x0a,
+      30,   20,   20,   20, 0x0a,
+      40,   20,   20,   20, 0x0a,
+      47,   20,   20,   20, 0x0a,
+
        0        // eod
 };
 
 static const char qt_meta_stringdata_Netlist__CellWidget[] = {
-    "Netlist::CellWidget\0"
+    "Netlist::CellWidget\0\0goLeft()\0goRight()\0"
+    "goUp()\0goDown()\0"
 };
 
 void Netlist::CellWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        CellWidget *_t = static_cast<CellWidget *>(_o);
+        switch (_id) {
+        case 0: _t->goLeft(); break;
+        case 1: _t->goRight(); break;
+        case 2: _t->goUp(); break;
+        case 3: _t->goDown(); break;
+        default: ;
+        }
+    }
     Q_UNUSED(_a);
 }
 
@@ -75,6 +90,11 @@ int Netlist::CellWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 4)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 4;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE

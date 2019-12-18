@@ -10,6 +10,7 @@
 #include <QPoint>
 #include <QDialog>
 #include <QLineEdit>
+
 #include <QAbstractTableModel>
 #include "Box.h"
 #include "Cell.h"
@@ -31,7 +32,11 @@ namespace Netlist {
       int         columnCount     ( const  QModelIndex& parent=QModelIndex () ) const;
       QVariant    data            ( const  QModelIndex& index , int  role=Qt:: DisplayRole ) const;
       QVariant    headerData      ( int  section, Qt:: Orientation  orientation, int  role=Qt:: DisplayRole ) const;
-      void        updateDatas     (const  QModelIndex& parent);
+      
+  public slots:
+      void        updateDatas     ();
+
+
 
   private:
     Cell* cell_;

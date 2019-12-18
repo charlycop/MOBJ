@@ -67,7 +67,7 @@ namespace Netlist{
     }
 
     Box     LineShape::getBoundingBox() const{
-        Box t;
+        Box t(10,10,40,40);
         return t;
     }
 

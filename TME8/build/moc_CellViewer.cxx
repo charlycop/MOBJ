@@ -22,27 +22,30 @@ static const uint qt_meta_data_Netlist__CellViewer[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: signature, parameters, type, tag, flags
+      21,   20,   20,   20, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      21,   20,   20,   20, 0x0a,
-      36,   20,   20,   20, 0x0a,
-      47,   20,   20,   20, 0x0a,
-      58,   20,   20,   20, 0x0a,
-      73,   20,   20,   20, 0x0a,
+      34,   20,   20,   20, 0x0a,
+      49,   20,   20,   20, 0x0a,
+      60,   20,   20,   20, 0x0a,
+      71,   20,   20,   20, 0x0a,
+      86,   20,   20,   20, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_Netlist__CellViewer[] = {
-    "Netlist::CellViewer\0\0setCell(Cell*)\0"
-    "saveCell()\0openCell()\0showCellsLib()\0"
-    "showInstancesWidget()\0"
+    "Netlist::CellViewer\0\0cellLoaded()\0"
+    "setCell(Cell*)\0saveCell()\0openCell()\0"
+    "showCellsLib()\0showInstancesWidget()\0"
 };
 
 void Netlist::CellViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -51,11 +54,12 @@ void Netlist::CellViewer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         Q_ASSERT(staticMetaObject.cast(_o));
         CellViewer *_t = static_cast<CellViewer *>(_o);
         switch (_id) {
-        case 0: _t->setCell((*reinterpret_cast< Cell*(*)>(_a[1]))); break;
-        case 1: _t->saveCell(); break;
-        case 2: _t->openCell(); break;
-        case 3: _t->showCellsLib(); break;
-        case 4: _t->showInstancesWidget(); break;
+        case 0: _t->cellLoaded(); break;
+        case 1: _t->setCell((*reinterpret_cast< Cell*(*)>(_a[1]))); break;
+        case 2: _t->saveCell(); break;
+        case 3: _t->openCell(); break;
+        case 4: _t->showCellsLib(); break;
+        case 5: _t->showInstancesWidget(); break;
         default: ;
         }
     }
@@ -93,10 +97,16 @@ int Netlist::CellViewer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
+}
+
+// SIGNAL 0
+void Netlist::CellViewer::cellLoaded()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, 0);
 }
 QT_END_MOC_NAMESPACE

@@ -11,6 +11,7 @@
 #include  "OpenCellDialog.h"
 #include  "InstancesWidget.h"
 #include  "CellsLib.h"
+#include  "CellsModel.h"
 
 #include  "CellWidget.h"
 #include  "Term.h"
@@ -22,6 +23,7 @@
 #include  "Node.h"
 #include  "Net.h"
 #include  "CellViewer.h"
+
 
 namespace Netlist{
 
@@ -73,6 +75,9 @@ namespace Netlist{
         action ->setVisible   ( true );
         fileMenu ->addAction( action  );
         connect( action , SIGNAL(triggered ()), this , SLOT(showCellsLib() ));     
+        //Signal pour updater la liste.
+        connect( this ,  SIGNAL(cellLoaded()), cellsLib_->getBaseModel() , SLOT(updateDatas()));
+
 
         /* QUIT */
         action = new  QAction( "&Quit", this );
@@ -85,6 +90,10 @@ namespace Netlist{
 
     }
 
+   // void updateDatas(){
+   //         CellsModel::updateDatas();
+    //}
+
     void   CellViewer :: saveCell  (){
         Cell* cell = getCell();
         if ( cell == NULL ) 
@@ -95,7 +104,8 @@ namespace Netlist{
             cell->save(cellName.toStdString());
         }
     }
-    void cellLoaded(){}
+    
+    //void cellLoaded(){}
 
     void   CellViewer :: openCell  (){
         std::string cellptr;

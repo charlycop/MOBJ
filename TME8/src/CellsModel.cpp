@@ -1,7 +1,16 @@
+#include  <QMainWindow>
+#include  <QResizeEvent>
+#include  <QPainter>
+#include  <QPen>
+#include  <QBrush>
+#include  <QFont>
+#include  <QApplication>
 #include  <QLabel>
 #include  <QLineEdit>
 #include  <QPushButton>
 #include  <QHBoxLayout>
+#include  <QMenuBar>
+
 #include  <QVBoxLayout>
 #include  <QAbstractTableModel>
 #include  "CellsModel.h"
@@ -15,21 +24,17 @@ namespace Netlist{
     : QAbstractTableModel(parent)
     , cell_(NULL)
     { 
-        connect( this , SIGNAL(cellLoaded()), this , SLOT(updateDatas(parent)));
     }
+
+    //void CellsModel::cellLoaded(){}
 
     CellsModel ::~CellsModel  ()
     { }
 
-    void CellsModel::updateDatas(const  QModelIndex& parent){
-        rowCount(parent);
-    }
-
-    void   CellsModel :: setCell ( Cell* cell ) {
-        emit  layoutAboutToBeChanged ();
-        cell_ = cell;
+    void CellsModel::updateDatas(){
         emit  layoutChanged ();
     }
+    
 
     int   CellsModel :: rowCount(const  QModelIndex& parent) const{
 
@@ -43,11 +48,11 @@ namespace Netlist{
     QVariant   CellsModel::data( const  QModelIndex& index, int  role ) const{
         std::cout << "On entre ici" << std::endl;
         if (not  index.isValid ())  return  QVariant ();
-        std::cout << "------\nROLE : " << role << "(" <<Qt:: DisplayRole<<")"<< std::endl;
+       // std::cout << "------\nROLE : " << role << "(" <<Qt:: DisplayRole<<")"<< std::endl;
 
         if (role == Qt::DisplayRole) {
             int  row = index.row();
-            std::cout << "------\nROLE : " << role << "(" <<Qt::DisplayRole<<")"<< std::endl;
+         //   std::cout << "------\nROLE : " << role << "(" <<Qt::DisplayRole<<")"<< std::endl;
             return  cell_->getAllCells()[row]->getName().c_str();            
         }
 

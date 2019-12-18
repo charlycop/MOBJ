@@ -285,20 +285,34 @@ CMakeFiles/tme810.dir/CellsModel.cpp.o
  /usr/include/QtCore/qabstractitemmodel.h
  /usr/include/QtCore/qpoint.h
  /usr/include/QtCore/qrect.h
+ /usr/include/QtGui/QApplication
+ /usr/include/QtGui/QBrush
  /usr/include/QtGui/QDialog
+ /usr/include/QtGui/QFont
  /usr/include/QtGui/QHBoxLayout
  /usr/include/QtGui/QLabel
  /usr/include/QtGui/QLineEdit
+ /usr/include/QtGui/QMainWindow
+ /usr/include/QtGui/QMenuBar
  /usr/include/QtGui/QPainter
+ /usr/include/QtGui/QPen
  /usr/include/QtGui/QPixmap
  /usr/include/QtGui/QPushButton
+ /usr/include/QtGui/QResizeEvent
  /usr/include/QtGui/QVBoxLayout
  /usr/include/QtGui/QWidget
+ /usr/include/QtGui/qapplication.h
  /usr/include/QtGui/qboxlayout.h
+ /usr/include/QtGui/qbrush.h
  /usr/include/QtGui/qdialog.h
+ /usr/include/QtGui/qevent.h
+ /usr/include/QtGui/qfont.h
  /usr/include/QtGui/qlabel.h
  /usr/include/QtGui/qlineedit.h
+ /usr/include/QtGui/qmainwindow.h
+ /usr/include/QtGui/qmenubar.h
  /usr/include/QtGui/qpainter.h
+ /usr/include/QtGui/qpen.h
  /usr/include/QtGui/qpixmap.h
  /usr/include/QtGui/qpushbutton.h
  /usr/include/QtGui/qwidget.h
