@@ -132,10 +132,23 @@ namespace Netlist {
     const  vector <Instance*>& instances = cell_->getInstances ();
 
     for (size_t i=0; i<instances.size() ; ++i) {
-             std::cout<< "On entre dans le for" << std::endl;
-             std::cout<< "i=" << i << std::endl;
-        Point           instPos = instances[i]->getPosition ();
-        std::cerr << instances[i]->getName() << " (" << instPos.getX() << ","<< instPos.getY() <<")"<< std::endl;
+
+///////////////////////
+      
+
+
+
+///////////////////////
+
+
+
+
+
+
+           //  std::cout<< "On entre dans le for" << std::endl;
+            // std::cout<< "i=" << i << std::endl;
+        Point instPos = instances[i]->getPosition ();
+     //   std::cerr << instances[i]->getName() << " (" << instPos.getX() << ","<< instPos.getY() <<")"<< std::endl;
         const  Symbol* symbol   = instances[i]->getMasterCell()->getSymbol ();
 
         if (not  symbol) continue;
@@ -143,13 +156,72 @@ namespace Netlist {
         const  vector <Shape*>& shapes=symbol->getShapes ();
 
         for (size_t j=0 ; j< shapes.size() ; ++j) {
-          std::cerr << "ICI" << std::endl;
+          //std::cerr << "ICI" << std::endl;
           //BoxShape* boxShape = dynamic_cast <BoxShape*>(shapes[j]);
-          LineShape* boxShape = dynamic_cast <LineShape*>(shapes[j]);
-          if (boxShape) {
-            Box    box   = boxShape ->getBoundingBox ();
-            QRect  rect = boxToScreenRect(box.translate(instPos ));
+          //ArcShape* boxShape = dynamic_cast <ArcShape*>(shapes[j]);
+
+          ArcShape* arcShape = dynamic_cast <ArcShape*>(shapes[j]);
+          if (arcShape) {
+                        Box    box   = arcShape ->getBoundingBox ();
+            QRect  rect = boxToScreenRect(box.translate(instPos));
+
+            //////////////////////
+            std::cerr << "ARCSHAPE\n" << std::endl;
+            std::cerr << "Box(" << box.getX1() <<"," << box.getY1() << ")-(" 
+                      << box.getX2() <<"," << box.getY2() << ")" << std::endl;
+                                              std::cerr << "rect(" << rect.x() <<"," << rect.y() << ")-(" 
+                      << rect.width() <<"," << rect.height() << ")" << std::endl;
+                    
+
+            std::cerr << arcShape->getStart() << "/" <<arcShape->getSpan() << std::endl;
+            std::cerr << "=============" << std::endl;
+            ////////////////////////
+
+            painter.setBrush(Qt::NoBrush);
+            painter.setPen(QPen( Qt::darkGreen , 1, Qt::DotLine));
+            //painter.drawRect(rect);
+            painter.setPen( QPen( Qt::darkGreen , 3 ) );
+            painter.drawArc(rect, arcShape->getStart()*16 , arcShape->getSpan()*16 );
+            //painter.drawEllipse(QRectF(rect));
+   
+            continue;
+          }
+
+          LineShape* lineShape = dynamic_cast <LineShape*>(shapes[j]);
+          if (lineShape) {
+            Box    box   = lineShape ->getBoundingBox ();
+            /*std::cerr << "Box(" << box.getX1() <<"," << box.getY1() << ")-(" 
+                      << box.getX2() <<"," << box.getY2() << ")" << std::endl;*/
+            QRect  rect = boxToScreenRect(box.translate(instPos));
+
+                       /* std::cerr << "rect(" << rect.x() <<"," << rect.y() << ")-(" 
+                      << rect.width() <<"," << rect.height() << ")" << std::endl;*/
+
+           // painter.drawRect(rect);
+            painter.setPen( QPen( Qt::darkGreen , 3 ) );
+            painter.drawLine(rect.x(), rect.y(), rect.x()+rect.width(), rect.y()+rect.height());
+            
+            continue;
+          }
+
+          TermShape* termShape = dynamic_cast <TermShape*>(shapes[j]);
+          if (termShape) {
+            Box    box   = termShape ->getBoundingBox ();
+            QRect  rect = boxToScreenRect(box.translate(instPos));
+            painter.setPen( QPen( Qt::red ) );
+            painter.setBrush(Qt::red);
             painter.drawRect(rect);
+            continue;
+          }
+
+          
+
+          EllipseShape* ellipse = dynamic_cast <EllipseShape*>(shapes[j]);
+          if (ellipse) {
+            Box    box   = ellipse ->getBoundingBox ();
+            QRect  rect = boxToScreenRect(box.translate(instPos));
+            painter.drawEllipse(QRectF(rect));
+            continue;
           }
         }
       }

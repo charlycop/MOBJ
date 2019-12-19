@@ -62,28 +62,24 @@ namespace Netlist{
     */
 
     Box     BoxShape::getBoundingBox() const{
-        Box t;
-        return t;
+        return box_;
     }
 
     Box     LineShape::getBoundingBox() const{
-        Box t(10,10,40,40);
-        return t;
+        return Box(x1_, y1_, x2_, y2_);
     }
 
     Box     TermShape::getBoundingBox() const{
-        Box t;
-        return t;
+        size_t marge=3;
+        return Box(x1_-marge, y1_-marge, x1_+marge, y1_+marge);
     }
 
     Box     ArcShape::getBoundingBox() const{
-        Box t;
-        return t;
+        return box_;
     }
 
     Box     EllipseShape::getBoundingBox() const{
-        Box t;
-        return t;
+        return box_;
     }
 
 
