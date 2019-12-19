@@ -42,8 +42,8 @@ namespace Netlist {
     , cell_  (NULL)
     , viewport_(Box (0 ,0 ,500 ,500))
   {
-    setAttribute    ( Qt::WA_OpaquePaintEvent );
-    setAttribute    ( Qt::WA_NoSystemBackground );
+    //setAttribute    ( Qt::WA_OpaquePaintEvent );
+    //setAttribute    ( Qt::WA_NoSystemBackground );
     setAttribute    ( Qt::WA_StaticContents );
     setSizePolicy   ( QSizePolicy::Expanding, QSizePolicy::Expanding );
     setFocusPolicy  ( Qt::StrongFocus );
@@ -129,22 +129,42 @@ namespace Netlist {
      std::cout<< "HOLALA pas de CELL !" << std::endl;
        return;
     }
+
+    ///////////////////////*
+    const vector <Net*>& nets = cell_->getNets();
+    for (size_t i=0; i<nets.size() ; ++i) {
+        const vector <Line*>& lines = nets[i]->getLines();
+        if (lines.size()){
+            for (size_t k=0; k<lines.size() ; ++k) {
+                Point sourcePosition = lines[k]->getSourcePosition();
+                Point targetPosition = lines[k]->getTargetPosition();
+                painter.setPen( QPen( Qt::darkGreen , 3 ) );
+                painter.drawLine(xToScreenX(sourcePosition.getX()), yToScreenY(sourcePosition.getY()), xToScreenX(targetPosition.getX()), yToScreenY(targetPosition.getY()));
+            }
+        }
+/*
+        const vector <Node*>& nodes = nets[i]->getNodes();
+        if (nodes.size()){
+            for (size_t k=0; k<nodes.size() ; ++k) {
+                Point nodePosition = nodes[k]->getPosition();
+                
+
+                int x = nodePosition.getX();
+                int y = nodePosition.getY();
+
+                Box    box(x-2, y-2, x+2, y+2);
+                QRect  rect = boxToScreenRect(box);
+                
+                painter.setPen( QPen( Qt::red ) );
+                painter.setBrush(Qt::red);
+                painter.drawRect(rect);
+            }
+        }*/
+    }
+
+    ///////////////////////
     const  vector <Instance*>& instances = cell_->getInstances ();
-
     for (size_t i=0; i<instances.size() ; ++i) {
-
-///////////////////////
-      
-
-
-
-///////////////////////
-
-
-
-
-
-
            //  std::cout<< "On entre dans le for" << std::endl;
             // std::cout<< "i=" << i << std::endl;
         Point instPos = instances[i]->getPosition ();
@@ -206,7 +226,7 @@ namespace Netlist {
 
           TermShape* termShape = dynamic_cast <TermShape*>(shapes[j]);
           if (termShape) {
-            Box    box   = termShape ->getBoundingBox ();
+            Box    box   = termShape->getBoundingBox ();
             QRect  rect = boxToScreenRect(box.translate(instPos));
             painter.setPen( QPen( Qt::red ) );
             painter.setBrush(Qt::red);
@@ -219,6 +239,7 @@ namespace Netlist {
           EllipseShape* ellipse = dynamic_cast <EllipseShape*>(shapes[j]);
           if (ellipse) {
             Box    box   = ellipse ->getBoundingBox ();
+            painter.setBrush(Qt::NoBrush);
             QRect  rect = boxToScreenRect(box.translate(instPos));
             painter.drawEllipse(QRectF(rect));
             continue;
