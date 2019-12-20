@@ -174,67 +174,77 @@ namespace Netlist {
     }
 
     const  vector <Instance*>& instances = cell_->getInstances ();
-    for (size_t i=0; i<instances.size() ; ++i) {
+    if (instances.size()){
+        for (size_t i=0; i<instances.size() ; ++i) {
 
-      Point instPos = instances[i]->getPosition ();
-      const  Symbol* symbol   = instances[i]->getMasterCell()->getSymbol ();
+          Point instPos = instances[i]->getPosition ();
+          const  Symbol* symbol   = instances[i]->getMasterCell()->getSymbol ();
 
-      if (not  symbol) continue;
-      if (flags) {
-        const  vector <Shape*>& shapes=symbol->getShapes ();
+          if (not symbol) continue;
+          if (flags) {
+            const  vector <Shape*>& shapes=symbol->getShapes ();
 
-        for (size_t j=0 ; j< shapes.size() ; ++j) {
-          
-          TermShape* termShape = dynamic_cast <TermShape*>(shapes[j]);
-          if (termShape) {
-            Box    box   = termShape->getBoundingBox ();
-            QRect  rect = boxToScreenRect(box.translate(instPos));
-            painter.setPen( QPen( Qt::red ) );
-            painter.setBrush(Qt::red);
-            painter.drawRect(rect);
-            continue;
-          }
+            for (size_t j=0 ; j< shapes.size() ; ++j) {
+              
+              TermShape* termShape = dynamic_cast <TermShape*>(shapes[j]);
+              if (termShape) {
+                Box    box   = termShape->getBoundingBox ();
+                QRect  rect = boxToScreenRect(box.translate(instPos));
+                painter.setPen( QPen( Qt::red ) );
+                painter.setBrush(Qt::red);
+                painter.drawRect(rect);
+                continue;
+              }
 
-          ArcShape* arcShape = dynamic_cast <ArcShape*>(shapes[j]);
-          if (arcShape) {
-            Box    box   = arcShape ->getBoundingBox ();
-            QRect  rect = boxToScreenRect(box.translate(instPos));
-            painter.setBrush(Qt::NoBrush);
-            painter.setPen( QPen( Qt::darkGreen , 3 ) );
-            painter.drawArc(rect, arcShape->getStart()*16 , arcShape->getSpan()*16 );   
-            continue;
-          }
+              ArcShape* arcShape = dynamic_cast <ArcShape*>(shapes[j]);
+              if (arcShape) {
+                Box    box   = arcShape ->getBoundingBox ();
+                QRect  rect = boxToScreenRect(box.translate(instPos));
+                painter.setBrush(Qt::NoBrush);
+                painter.setPen( QPen( Qt::darkGreen , 3 ) );
+                painter.drawArc(rect, arcShape->getStart()*16 , arcShape->getSpan()*16 );   
+                continue;
+              }
 
-          LineShape* lineShape = dynamic_cast <LineShape*>(shapes[j]);
-          if (lineShape) {
-            Box    box   = lineShape ->getBoundingBox ();
-            QRect  rect  = boxToScreenRect(box.translate(instPos));
-            painter.setPen( QPen( Qt::darkGreen , 3 ) );
-            painter.drawLine(rect.x(), rect.y(), rect.x()+rect.width(), rect.y()+rect.height());
-            continue;
-          }
+              LineShape* lineShape = dynamic_cast <LineShape*>(shapes[j]);
+              if (lineShape) {
+                Box    box   = lineShape ->getBoundingBox ();
+                QRect  rect  = boxToScreenRect(box.translate(instPos));
+                painter.setPen( QPen( Qt::darkGreen , 3 ) );
+                painter.drawLine(rect.x(), rect.y(), rect.x()+rect.width(), rect.y()+rect.height());
+                continue;
+              }
 
-          EllipseShape* ellipse = dynamic_cast <EllipseShape*>(shapes[j]);
-          if (ellipse) {
-            Box    box   = ellipse ->getBoundingBox ();
-            painter.setBrush(Qt::NoBrush);
-            QRect  rect = boxToScreenRect(box.translate(instPos));
-            painter.drawEllipse(QRectF(rect));
-            continue;
-          }
+              EllipseShape* ellipse = dynamic_cast <EllipseShape*>(shapes[j]);
+              if (ellipse) {
+                Box    box   = ellipse ->getBoundingBox ();
+                painter.setBrush(Qt::NoBrush);
+                QRect  rect = boxToScreenRect(box.translate(instPos));
+                painter.drawEllipse(QRectF(rect));
+                continue;
+              }
 
-          BoxShape* boxshape = dynamic_cast <BoxShape*>(shapes[j]);
-          if (boxshape) {
-            Box    box   = boxshape->getBoundingBox ();
-            QRect  rect  = boxToScreenRect(box.translate(instPos));
-            painter.setPen( QPen( Qt::darkGreen , 3 ) );
-            painter.setBrush(Qt::NoBrush);
-            painter.drawRect(rect);
-            continue;
+              BoxShape* boxshape = dynamic_cast <BoxShape*>(shapes[j]);
+              if (boxshape) {
+                Box    box   = boxshape->getBoundingBox ();
+                QRect  rect  = boxToScreenRect(box.translate(instPos));
+                painter.setPen( QPen( Qt::darkGreen , 3 ) );
+                painter.setBrush(Qt::NoBrush);
+                painter.drawRect(rect);
+                continue;
+              }
+            }
           }
         }
       }
-    }
+  }
+  else{ // SI on a pas d'instances, on affiche les symboles de la cell_
+      int compteur = 0;
+      //const  Symbol* symbol   = Cell_->getSymbol ();
+      for(auto& symbol : Cell_->getSymbol ()){
+        ++compteur;
+      }
+      std::cout << compteur << std::endl;
   }
 
 }  // Netlist namespace.
