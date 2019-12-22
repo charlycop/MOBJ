@@ -171,10 +171,10 @@ namespace Netlist {
 
         Box    box(x-5, y-5, x+5, y+5);
         QRect  rect = boxToScreenRect(box);
-        
-        painter.setPen( QPen( Qt::yellow ) );
+        painter.setBrush(Qt::NoBrush);
+        painter.setPen( QPen( Qt::yellow, 20, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin) );
         painter.setBrush(Qt::yellow);
-        painter.drawRect(rect);
+        painter.drawPoint(pointToScreenPoint(term->getPosition()));
       }
   
       for (size_t i=0; i<instances.size() ; ++i) {
@@ -192,9 +192,9 @@ namespace Netlist {
             if (termShape) {
               Box    box   = termShape->getBoundingBox ();
               QRect  rect = boxToScreenRect(box.translate(instPos));
-              painter.setPen( QPen( Qt::red ) );
-              painter.setBrush(Qt::red);
-              painter.drawRect(rect);
+              painter.drawText(rect, termShape->getAlign(), tr((termShape->getTerm()->getName()).c_str()));
+              painter.setPen( QPen( Qt::red, 10/*, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin*/) ); 
+              painter.drawPoint(rect.center());
               continue;
             }
 
@@ -233,6 +233,7 @@ namespace Netlist {
               painter.setPen( QPen( Qt::darkGreen , 3 ) );
               painter.setBrush(Qt::NoBrush);
               painter.drawRect(rect);
+              painter.drawText(rect, Qt::AlignTop|Qt::AlignLeft, tr("QtProject"));
               continue;
             }
           }
@@ -252,6 +253,7 @@ namespace Netlist {
               painter.drawLine(rect.x(), rect.y(), rect.x()+rect.width(), rect.y()+rect.height());
               continue;
             }
+
             ArcShape* arcShape = dynamic_cast <ArcShape*>(shape);
             if (arcShape) {
               Box    box   = arcShape ->getBoundingBox ();
@@ -261,6 +263,7 @@ namespace Netlist {
               painter.drawArc(rect, arcShape->getStart()*16 , arcShape->getSpan()*16 );   
               continue;
             }
+
             EllipseShape* ellipse = dynamic_cast <EllipseShape*>(shape);
             if (ellipse) {
               Box    box   = ellipse ->getBoundingBox ();
@@ -277,6 +280,7 @@ namespace Netlist {
               painter.setPen( QPen( Qt::darkGreen , 3 ) );
               painter.setBrush(Qt::NoBrush);
               painter.drawRect(rect);
+
               continue;
             }
 
@@ -287,6 +291,9 @@ namespace Netlist {
               painter.setPen( QPen( Qt::red ) );
               painter.setBrush(Qt::red);
               painter.drawRect(rect);
+             
+             
+
               continue;
             }
         }

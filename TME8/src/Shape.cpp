@@ -70,8 +70,8 @@ namespace Netlist{
     }
 
     Box     TermShape::getBoundingBox() const{
-        size_t marge=3;
-        return Box(x1_-marge, y1_-marge, x1_+marge, y1_+marge);
+        size_t marge=18;
+        return Box(x1_-marge, y1_-marge-4, x1_+marge, y1_+marge+2);
     }
 
     Box     ArcShape::getBoundingBox() const{
