@@ -85,6 +85,10 @@ namespace Netlist {
     painter.drawRect( rect  );
     painter.setPen   ( QPen   ( Qt::red , 0 ) );
     painter.setBrush( QBrush( Qt::red ) );
+
+    QFont font = painter.font();
+      font.setPixelSize(12);
+      painter.setFont(font);
     query(1, painter);
     // ...
     //painter.drawRect( rect2  );
@@ -187,16 +191,6 @@ namespace Netlist {
           const  vector <Shape*>& shapes=symbol->getShapes ();
 
           for (size_t j=0 ; j< shapes.size() ; ++j) {
-            
-            TermShape* termShape = dynamic_cast <TermShape*>(shapes[j]);
-            if (termShape) {
-              Box    box   = termShape->getBoundingBox ();
-              QRect  rect = boxToScreenRect(box.translate(instPos));
-              painter.drawText(rect, termShape->getAlign(), tr((termShape->getTerm()->getName()).c_str()));
-              painter.setPen( QPen( Qt::red, 10/*, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin*/) ); 
-              painter.drawPoint(rect.center());
-              continue;
-            }
 
             ArcShape* arcShape = dynamic_cast <ArcShape*>(shapes[j]);
             if (arcShape) {
@@ -233,7 +227,19 @@ namespace Netlist {
               painter.setPen( QPen( Qt::darkGreen , 3 ) );
               painter.setBrush(Qt::NoBrush);
               painter.drawRect(rect);
-              painter.drawText(rect, Qt::AlignTop|Qt::AlignLeft, tr("QtProject"));
+              continue;
+            }
+
+            TermShape* termShape = dynamic_cast <TermShape*>(shapes[j]);
+            if (termShape) {
+              Box    box   = termShape->getBoundingBox ();
+              QRect  rect = boxToScreenRect(box.translate(instPos));
+              std::cout << Qt::AlignBottom << "-" << Qt::AlignRight << std::endl;
+              int flags[2];
+              TermShape::toQtAlign(termShape->getAlign(), flags);
+              painter.drawText(rect, flags[0]|flags[1], tr((termShape->getTerm()->getName()).c_str()));
+              painter.setPen( QPen( Qt::red, 10) ); 
+              painter.drawPoint(rect.center());
               continue;
             }
           }
@@ -291,9 +297,6 @@ namespace Netlist {
               painter.setPen( QPen( Qt::red ) );
               painter.setBrush(Qt::red);
               painter.drawRect(rect);
-             
-             
-
               continue;
             }
         }

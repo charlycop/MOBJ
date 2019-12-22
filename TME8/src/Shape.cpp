@@ -7,6 +7,7 @@
 #include "Cell.h"
 #include "Indentation.h"
 #include "Shape.h"
+#include <QFlags>
 #include "XmlUtil.h"
 
 using namespace std;
@@ -279,6 +280,16 @@ namespace Netlist{
         else if (align == "bottom_left")    return bottom_left;
         
         return bottom_right;
+    }
+
+    void TermShape::toQtAlign(NameAlign name, int* flag){
+        switch(name){
+          case top_left      : flag[0]=32;flag[1]=1; break;
+          case top_right     : flag[0]=32;flag[1]=2; break;
+          case bottom_left   : flag[0]=64;flag[1]=1; break;
+          case bottom_right  : flag[0]=64;flag[1]=2; break;
+          default            : 0;
+        }
     }
 
 }  // Netlist namespace.

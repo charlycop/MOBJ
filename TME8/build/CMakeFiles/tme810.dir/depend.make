@@ -1057,6 +1057,8 @@ CMakeFiles/tme810.dir/Shape.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Shape
 CMakeFiles/tme810.dir/Shape.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Symbol.h
 CMakeFiles/tme810.dir/Shape.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/Term.h
 CMakeFiles/tme810.dir/Shape.cpp.o: /users/enseig/oudy/Bureau/MOBJ/TME8/src/XmlUtil.h
+CMakeFiles/tme810.dir/Shape.cpp.o: /usr/include/QtCore/QFlags
+CMakeFiles/tme810.dir/Shape.cpp.o: /usr/include/QtCore/qglobal.h
 CMakeFiles/tme810.dir/Shape.cpp.o: /usr/include/libxml2/libxml/SAX.h
 CMakeFiles/tme810.dir/Shape.cpp.o: /usr/include/libxml2/libxml/SAX2.h
 CMakeFiles/tme810.dir/Shape.cpp.o: /usr/include/libxml2/libxml/dict.h

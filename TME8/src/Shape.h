@@ -82,6 +82,7 @@ class TermShape : public Shape{
            void        toXml         ( std::ostream& );
     static std::string toString      ( NameAlign );
     static NameAlign   toNameAlign   ( std::string );
+    static void        toQtAlign     (NameAlign name, int* flag);
 
 
     inline  long      getX1        ();
