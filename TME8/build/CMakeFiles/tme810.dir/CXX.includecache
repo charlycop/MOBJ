@@ -39,6 +39,8 @@ QFont
 -
 QApplication
 -
+vector
+-
 CellWidget.h
 /users/enseig/oudy/Bureau/MOBJ/TME8/src/CellWidget.h
 Term.h
