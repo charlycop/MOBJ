@@ -30,7 +30,10 @@ namespace Netlist{
 
     LineShape::LineShape  (Symbol* s, long x1, long y1, long x2, long y2 ):
     Shape(s), x1_(x1), x2_(x2), y1_(y1), y2_(y2)
-    {}
+    {
+        //cerr << "LINESHAPE VERIF (" << x1_ << "," << y1_ << ")" << endl;
+
+    }
 
     TermShape::TermShape  (Symbol* s, string name, long x, long y, NameAlign align):
     Shape(s), term_(NULL), x1_(x), y1_(y), align_(align)
@@ -67,7 +70,10 @@ namespace Netlist{
     }
 
     Box     LineShape::getBoundingBox() const{
-        return Box(x1_, y1_, x2_, y2_);
+        cout << "========\ngetBouding(" << x1_ << "," << y1_
+      << "-" << x2_ << "," << y2_ << ")" << endl;
+
+                return Box(x1_, y1_, x2_, y2_);
     }
 
     Box     TermShape::getBoundingBox() const{
@@ -98,7 +104,7 @@ namespace Netlist{
             xmlGetIntAttribute( reader, "x2", x2 );  
             xmlGetIntAttribute( reader, "y1", y1 );
             xmlGetIntAttribute( reader, "y2", y2 );         
-
+            //cerr << "LINESHAPE VERIF (" << x1 << "," << y1 << ")" << endl;
             return new LineShape(owner, x1, y1, x2, y2);
         }
         cerr << "[ERROR] Problem inside LineShape::fromXml" << endl;

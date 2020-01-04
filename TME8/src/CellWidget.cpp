@@ -89,8 +89,9 @@ namespace Netlist {
 
 
     QFont font = painter.font();
-      font.setPixelSize(12);
-      painter.setFont(font);
+    font.setPixelSize(12);
+    painter.setFont(font);
+    
     query(1, painter);
     // ...
     //painter.drawRect( rect2  );
@@ -130,7 +131,8 @@ namespace Netlist {
     repaint ();
   }
 
-  int getNbLignes (vector<int>& lignes, size_t node_id){
+  // Compte le nombre de fils sur un node
+  int getNbLignes (vector<size_t>& lignes, size_t node_id){
       int nombre=0;
       for (auto& id : lignes)
         if (id == node_id)
@@ -146,11 +148,13 @@ namespace Netlist {
 
     //Pour tous les nets de la cell
     for(auto& net : cell_->getNets()){
-        vector<int> lines;
+        vector<size_t> lines;
         // Pour toutes les lines du net courant
         for(auto& line : net->getLines()){
             Point sourcePosition = line->getSourcePosition();
             Point targetPosition = line->getTargetPosition();
+
+            // On cré un vecteur avec toutes les sources/targets
             lines.push_back(line->getSource()->getId());
             lines.push_back(line->getTarget()->getId());
             painter.setPen( QPen( Qt::cyan , 1 ) );
@@ -186,7 +190,6 @@ namespace Netlist {
   
       for (auto& instance : instances) {
         
-
         Point instPos = instance->getPosition ();
         Point instTitlePos(instPos.getX(),instPos.getY()-20);
         painter.drawText(pointToScreenPoint(instTitlePos), tr(instance->getName().c_str()));
@@ -196,7 +199,6 @@ namespace Netlist {
         if (not symbol) continue;
         if (flags) {
          
-
           for (auto& shape : symbol->getShapes ()) {
 
             arcShape = dynamic_cast <ArcShape*>(shape);
@@ -210,17 +212,21 @@ namespace Netlist {
 
             lineShape = dynamic_cast <LineShape*>(shape);
             if (lineShape) {
-              Box    box   = lineShape ->getBoundingBox ();
-              QRect  rect  = boxToScreenRect(box.translate(instPos));
+
+              int x1 = lineShape->getX1() + instPos.getX();
+              int x2 = lineShape->getX2() + instPos.getX();
+              int y1 = lineShape->getY1() + instPos.getY();
+              int y2 = lineShape->getY2() + instPos.getY();
+
               painter.setPen( QPen( Qt::darkGreen , 3 ) );
-              painter.drawLine(rect.x(), rect.y(), rect.x()+rect.width(), rect.y()+rect.height());
+              painter.drawLine(xToScreenX(x1), yToScreenY(y1), 
+                               xToScreenX(x2), yToScreenY(y2));
               continue;
             }
 
             ellipse = dynamic_cast <EllipseShape*>(shape);
             if (ellipse) {
               Box    box   = ellipse ->getBoundingBox ();
-              
               QRect  rect = boxToScreenRect(box.translate(instPos));
               painter.setPen( QPen( Qt::darkGreen , 3 ) );
               painter.drawEllipse(QRectF(rect));
@@ -232,13 +238,13 @@ namespace Netlist {
               Box    box   = boxshape->getBoundingBox ();
               QRect  rect  = boxToScreenRect(box.translate(instPos));
               painter.setPen( QPen( Qt::darkGreen , 3 ) );
-
               painter.drawRect(rect);
               continue;
             }
 
           }
           // On fait les terms a part pour qu'ils soient dessinés en dernier
+          painter.setPen( QPen( Qt::red, 9) ); 
           for (auto& shape : symbol->getShapes ()) { 
             termShape = dynamic_cast <TermShape*>(shape);
             if (termShape) {
@@ -246,7 +252,6 @@ namespace Netlist {
               QRect  rect = boxToScreenRect(box);
               int flags[2];
               TermShape::toQtAlign(termShape->getAlign(), flags);
-              painter.setPen( QPen( Qt::red, 9) ); 
               painter.drawText(rect, flags[0]|flags[1], tr((termShape->getTerm()->getName()).c_str()));
               painter.drawPoint(rect.center());
               continue;
@@ -264,9 +269,14 @@ namespace Netlist {
           
             lineShape = dynamic_cast <LineShape*>(shape);
             if (lineShape) {
-              Box    box   = lineShape ->getBoundingBox ();
-              QRect  rect  = boxToScreenRect(box);
-              painter.drawLine(rect.x(), rect.y(), rect.x()+rect.width(), rect.y()+rect.height());
+              int x1 = lineShape->getX1();
+              int x2 = lineShape->getX2();
+              int y1 = lineShape->getY1();
+              int y2 = lineShape->getY2();
+
+              painter.setPen( QPen( Qt::darkGreen , 3 ) );
+              painter.drawLine(xToScreenX(x1), yToScreenY(y1), 
+                               xToScreenX(x2), yToScreenY(y2));
               continue;
             }
 
