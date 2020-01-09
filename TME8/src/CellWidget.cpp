@@ -184,8 +184,13 @@ namespace Netlist {
       
       //Pour tous les terms de la cell
       for(auto& term : cell_->getTerms()){
+
         painter.setPen( QPen( Qt::red, 15) );
-        painter.drawPoint(pointToScreenPoint(term->getPosition()));
+        Point inOutPosition(term->getPosition());
+        painter.drawPoint(pointToScreenPoint(inOutPosition));
+
+        inOutPosition.setY(inOutPosition.getY()-20);
+        painter.drawText(pointToScreenPoint(inOutPosition), tr((term->getName()).c_str()));
       }
   
       for (auto& instance : instances) {
